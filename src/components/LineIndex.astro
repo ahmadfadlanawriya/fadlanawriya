@@ -1,0 +1,121 @@
+---
+import { getWork, getProfile } from '../lib/content';
+
+/**
+ * The strip map: the whole career as one line, four stations, terminating in contact.
+ *
+ * This is the first viewport's thesis. It shows the mechanism rather than describing it —
+ * a visitor who leaves after one screen has seen four constraints removed and where the
+ * line ends. It also supplies the Persuade primary action, which a hero of pure type
+ * cannot.
+ */
+const work = await getWork();
+const { data: profile } = await getProfile();
+---
+<nav class="line-index" aria-label="Case studies">
+  <p class="sign label" id="line-index-label">This line calls at</p>
+  <ol aria-labelledby="line-index-label">
+    {
+      work.map((entry) => (
+        <li class="tick-target">
+          <a href={`/work/${entry.id}`}>
+            <span class="stop">{entry.data.businessLine ?? entry.data.employer}</span>
+            <span class="when sign">{entry.data.year}</span>
+          </a>
+        </li>
+      ))
+    }
+    <li class="terminus tick-target is-interchange">
+      {
+        profile.email ? (
+          <a href={`mailto:${profile.email}`}>
+            <span class="stop">Write to me</span>
+            <span class="when sign">Terminus</span>
+          </a>
+        ) : (
+          <span class="pending">Contact — pending</span>
+        )
+      }
+    </li>
+  </ol>
+</nav>
+
+<style>
+  .line-index { margin-block-start: var(--spacing-2xl); }
+
+  .label { margin-block-end: var(--spacing-md); }
+
+  ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-lg) 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    flex: 1 1 9rem;
+    position: relative;
+    border-top: var(--route-stroke) solid var(--color-route);
+    padding-block-start: var(--spacing-md);
+    padding-inline-end: var(--spacing-md);
+  }
+
+  li::before {
+    content: '';
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    width: var(--tick-size);
+    height: var(--tick-size);
+    border-radius: var(--radius-tick);
+    background: var(--color-ground);
+    border: var(--route-stroke) solid var(--color-route);
+    transform: translate(-25%, -50%);
+  }
+
+  .terminus { border-top-color: var(--color-interchange); }
+  .terminus::before {
+    border-color: var(--color-interchange);
+    background: var(--color-sheet);
+  }
+
+  a { text-decoration: none; color: var(--color-ink); display: block; }
+  a:hover .stop,
+  a:focus-visible .stop {
+    color: var(--color-route);
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+  }
+  .terminus a:hover .stop,
+  .terminus a:focus-visible .stop { color: var(--color-interchange); }
+
+  .stop {
+    display: block;
+    font-size: var(--font-size-meta);
+    font-weight: 700;
+    line-height: var(--line-height-snug);
+    text-wrap: balance;
+  }
+
+  .when { display: block; margin-block-start: var(--spacing-2xs); }
+
+  .pending {
+    font-size: var(--font-size-meta);
+    font-weight: 700;
+    color: var(--color-interchange);
+    border-bottom: 2px dashed var(--color-interchange);
+  }
+
+  @media (max-width: 40rem) {
+    ol { display: grid; gap: 0; }
+    li {
+      border-top: 0;
+      border-inline-start: var(--route-stroke) solid var(--color-route);
+      padding-inline-start: var(--spacing-lg);
+      padding-block: var(--spacing-xs) var(--spacing-md);
+    }
+    li::before { transform: translate(-50%, 0); inset-block-start: 0.3em; }
+    .terminus { border-inline-start-color: var(--color-interchange); }
+  }
+</style>

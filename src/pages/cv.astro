@@ -1,0 +1,122 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ExperienceList from '../components/ExperienceList.astro';
+import ContactActions from '../components/ContactActions.astro';
+import { getProfile, getCv } from '../lib/content';
+
+const profile = await getProfile();
+const cv = await getCv();
+const { roles, education, certifications, tools, languages } = cv.data;
+---
+<BaseLayout
+  title={`Curriculum Vitae — ${profile.data.name}`}
+  description={`Full professional record for ${profile.data.name}: roles, education, certifications and tools.`}
+>
+  <div class="hero">
+    <h1>Curriculum Vitae</h1>
+    <p class="dek">{profile.data.headline}</p>
+    <ContactActions />
+  </div>
+
+  <div class="route terminates">
+    <section class="station interchange zone-layout">
+      <div class="zone"><h2>Experience</h2></div>
+      <div><ExperienceList roles={roles} density="full" /></div>
+    </section>
+
+    <section class="station zone-layout">
+      <div class="zone"><h2>Education</h2></div>
+      <ol class="plain">
+        {
+          education.map((e) => (
+            <li>
+              <h3>{e.institution}</h3>
+              <p class="credential">{e.credential}</p>
+              <p class="year sign">{e.year}</p>
+              {e.detail && <p class="detail">{e.detail}</p>}
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+
+    <section class="station zone-layout">
+      <div class="zone"><h2>Certifications</h2></div>
+      <ul class="tags">{certifications.map((c) => <li>{c}</li>)}</ul>
+    </section>
+
+    <section class="station zone-layout">
+      <div class="zone"><h2>Tools &amp; methods</h2></div>
+      <dl class="tools">
+        {
+          tools.map((group) => (
+            <div>
+              <dt class="sign">{group.group}</dt>
+              <dd>
+                <ul class="tags">{group.items.map((i) => <li>{i}</li>)}</ul>
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
+    </section>
+
+    <section class="station zone-layout">
+      <div class="zone"><h2>Languages</h2></div>
+      <ul class="tags">{languages.map((l) => <li>{l}</li>)}</ul>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .hero {
+    padding-block: var(--spacing-2xl);
+    border-bottom: var(--route-stroke) solid var(--color-route);
+    margin-block-end: var(--spacing-2xl);
+  }
+
+
+
+  .dek {
+    margin-block: var(--spacing-md) var(--spacing-xl);
+    /* steps down on the narrowest phone so the display title keeps a clear lead */
+    font-size: clamp(var(--font-size-meta), 3.4vw, var(--font-size-lead));
+    line-height: var(--line-height-snug);
+    font-weight: 600;
+    max-width: 44ch;
+  }
+
+  .plain > li + li { margin-block-start: var(--spacing-lg); }
+  .credential { font-weight: 700; color: var(--color-route); margin-block-start: var(--spacing-2xs); }
+  .year { margin-block-start: var(--spacing-xs); }
+  .detail { margin-block-start: var(--spacing-sm); color: var(--color-ink-quiet); }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs) var(--spacing-lg);
+  }
+  .tags li {
+    font-size: var(--font-size-meta);
+    font-weight: 700;
+    position: relative;
+  }
+  .tags li + li::before {
+    content: '';
+    position: absolute;
+    left: calc(var(--spacing-lg) / -2);
+    top: 0.5em;
+    width: var(--route-stroke);
+    height: var(--route-stroke);
+    background: var(--color-route);
+  }
+
+  .tools { display: grid; gap: var(--spacing-lg); }
+  .tools > div { display: grid; gap: var(--spacing-xs); }
+
+  /* once items wrap, a trailing mark reads as attached to nothing: the gap separates */
+  @media (max-width: 40rem) {
+    .tags { gap: var(--spacing-xs) var(--spacing-md); }
+    .tags li:not(:last-child)::after { display: none; }
+  }
+</style>

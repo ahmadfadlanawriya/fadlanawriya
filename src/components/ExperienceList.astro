@@ -1,0 +1,108 @@
+---
+import type { CvRole } from '../lib/content';
+import { displayDomain } from '../lib/content';
+
+/**
+ * One component, two densities from one source:
+ *   compact - company, title, dates, one-line summary. Used on /.
+ *   full    - adds context and every bullet. Used on /cv.
+ */
+interface Props {
+  roles: CvRole[];
+  density?: 'compact' | 'full';
+}
+const { roles, density = 'compact' } = Astro.props;
+---
+<ol class:list={['experience', density]}>
+  {
+    roles.map((role) => (
+      <li>
+        <h3>{role.company}</h3>
+        <p class="role-title">{role.title}</p>
+        <p class="role-dates sign">
+          <span>{role.start} &ndash; {role.end}</span>
+          {role.location && <span>{role.location}</span>}
+        </p>
+        {role.url && (
+          <p class="role-site">
+            <a href={role.url} target="_blank" rel="noopener">{displayDomain(role.url)}</a>
+          </p>
+        )}
+        {density === 'compact' && role.summary && <p class="role-summary">{role.summary}</p>}
+        {
+          density === 'full' && (
+            <>
+              {role.context && <p class="role-context">{role.context}</p>}
+              {role.bullets.length > 0 && (
+                <ul class="bullets">{role.bullets.map((b) => <li>{b}</li>)}</ul>
+              )}
+            </>
+          )
+        }
+      </li>
+    ))
+  }
+</ol>
+
+<style>
+  .experience { display: grid; }
+
+  .experience > li {
+    padding-block: var(--spacing-lg);
+    border-bottom: 1px solid var(--color-rule);
+  }
+  .experience > li:last-child { border-bottom: 0; }
+
+  h3 { font-size: var(--font-size-h3); }
+
+  .role-title {
+    font-weight: 700;
+    color: var(--color-route);
+    margin-block-start: var(--spacing-2xs);
+  }
+
+  .role-dates {
+    margin-block-start: var(--spacing-xs);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+  }
+
+  .role-site {
+    margin-block-start: var(--spacing-xs);
+    font-size: var(--font-size-micro);
+    font-weight: 700;
+    letter-spacing: var(--tracking-sign);
+  }
+  .role-site a {
+    color: var(--color-route);
+    text-decoration-thickness: 2px;
+  }
+
+  .role-summary,
+  .role-context {
+    margin-block-start: var(--spacing-sm);
+    color: var(--color-ink-quiet);
+    max-width: var(--measure);
+  }
+
+  .bullets {
+    margin-block-start: var(--spacing-md);
+    display: grid;
+    gap: var(--spacing-sm);
+    padding-inline-start: var(--spacing-lg);
+    max-width: var(--measure);
+  }
+  .bullets li { position: relative; }
+  .bullets li::before {
+    content: '';
+    position: absolute;
+    left: calc(var(--spacing-lg) * -1);
+    top: 0.62em;
+    width: var(--spacing-sm);
+    height: var(--route-stroke);
+    background: var(--color-route);
+  }
+
+  .full > li { padding-block: var(--spacing-xl); }
+</style>

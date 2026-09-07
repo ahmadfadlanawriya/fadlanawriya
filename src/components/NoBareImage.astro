@@ -1,0 +1,18 @@
+---
+/**
+ * Mapped to `img` in the MDX components object so a bare `![](...)` in a content file
+ * fails the build instead of silently dropping an unplated, unsourced raster onto the
+ * ground. Without this the Plate-or-Nothing Rule is unenforceable from day one.
+ */
+interface Props {
+  src?: string;
+  alt?: string;
+}
+const { src = '(no src)', alt } = Astro.props;
+
+throw new Error(
+  `Bare markdown image in a case study: "${src}"${alt ? ` (alt: "${alt}")` : ''}.\n` +
+    `Rasters enter this site only on the station plate, with a source line naming what ` +
+    `they are. Use <Wallmap captures={[{ src, alt }]} source="..." /> instead.`,
+);
+---

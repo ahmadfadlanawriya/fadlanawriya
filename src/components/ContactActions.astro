@@ -1,0 +1,94 @@
+---
+import { getProfile } from '../lib/content';
+
+/**
+ * The three confirmed contact routes: email, LinkedIn, downloadable CV.
+ * GitHub was offered and declined; do not add one.
+ *
+ * Missing values render a VISIBLE pending marker rather than a plausible fake.
+ * PRODUCT.md forbids inventing contact details, and the schema makes these optional
+ * so that rule is enforced structurally rather than by discipline.
+ */
+const { data } = await getProfile();
+const { email, linkedin, cv } = data;
+---
+<ul class="contact-actions">
+  <li>
+    {
+      email ? (
+        <a href={`mailto:${email}`}>{email}</a>
+      ) : (
+        <span class="pending">Email address &mdash; pending</span>
+      )
+    }
+  </li>
+  <li>
+    {
+      linkedin ? (
+        <a href={linkedin} rel="me noopener" target="_blank">LinkedIn</a>
+      ) : (
+        <span class="pending">LinkedIn &mdash; pending</span>
+      )
+    }
+  </li>
+  <li>
+    {
+      cv ? (
+        <a href={cv.href} target="_blank" rel="noopener">
+          Download CV (PDF)
+          <span class="hint">Updated {cv.updated}{cv.sizeLabel ? ` \u00b7 ${cv.sizeLabel}` : ''}</span>
+        </a>
+      ) : (
+        <span class="pending">CV download &mdash; pending</span>
+      )
+    }
+  </li>
+</ul>
+
+<style>
+  .contact-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-md) var(--spacing-2xl);
+  }
+
+  li {
+    font-size: var(--font-size-lead);
+    font-weight: 700;
+    min-width: 0;
+  }
+
+  /* the email address is the longest unbreakable string on the site */
+  a[href^='mailto:'] {
+    font-size: clamp(var(--font-size-meta), 3.6vw, var(--font-size-lead));
+    overflow-wrap: anywhere;
+  }
+
+  a {
+    color: var(--color-ink);
+    text-decoration-color: var(--color-route);
+  }
+  a:hover, a:focus-visible { color: var(--color-route); }
+
+  .hint {
+    display: block;
+    font-size: var(--font-size-micro);
+    font-weight: 700;
+    letter-spacing: var(--tracking-sign);
+    text-transform: uppercase;
+    color: var(--color-ink-quiet);
+    margin-block-start: var(--spacing-2xs);
+  }
+
+  /*
+   * An unsupplied value is stated as missing, never faked. Dashed, in the interchange
+   * colour: the line is drawn but the connection is not yet made.
+   */
+  .pending {
+    font-size: var(--font-size-meta);
+    font-weight: 700;
+    color: var(--color-interchange);
+    border-bottom: 2px dashed var(--color-interchange);
+    padding-block-end: var(--spacing-2xs);
+  }
+</style>

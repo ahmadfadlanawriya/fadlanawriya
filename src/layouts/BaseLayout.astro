@@ -1,0 +1,49 @@
+---
+import { Font } from 'astro:assets';
+import Seo from '../components/Seo.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import Masthead from '../components/Masthead.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  ogImage?: string;
+}
+const { title, description, ogImage } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <Font cssVariable="--font-sans" preload />
+    <Seo title={title} description={description} ogImage={ogImage} />
+  </head>
+  <body>
+    <!--
+    THESIS: A career read as a route map. Each case study is a line; each constraint is
+    the interchange where the line changes direction. Refuses the equal project-card grid
+    and the dark developer portfolio.
+    OWN-WORLD: Cool enamel-grey ground, near-black ink, one signal blue for route strokes,
+    one interchange red for junctions. Five named values, no invented sixth. One face,
+    Overpass, from Highway Gothic. Ruled voids instead of boxes and borders; everything on
+    a strict grid. Colour lives only in strokes and ticks — the reading column is achromatic.
+    STORY: A recruiter sees the line, follows it through four stations, understands each was
+    a constraint removed, and writes to him.
+    FIRST VIEWPORT: Name small at the top terminus. Headline at display scale as the line's
+    title. The route descends the left edge; the first station sits at the fold. Contact is
+    the line's terminus, repeated in the footer.
+    FORM: The Line Diagram — transit wayfinding. Candidate 3 of 7 on the ordered list.
+    Seed key c3f64f25.
+    FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
+    -->
+    <a class="skip-link" href="#main">Skip to content</a>
+    <Masthead />
+    <main id="main">
+      <slot />
+    </main>
+    <SiteFooter />
+  </body>
+</html>

@@ -1,0 +1,103 @@
+---
+import type { WorkEntry } from '../lib/content';
+import { displayDomain, getCv } from '../lib/content';
+
+interface Props {
+  entry: WorkEntry;
+}
+const { entry } = Astro.props;
+const { headline, dek, employer, businessLine, year, role, status, stack, cvKey, clientUrl } =
+  entry.data;
+
+/*
+ * The business line's own site when it has one (Taktis), otherwise the employer's from
+ * cv.yaml. A separate row rather than linking the Client value: "Broom Indonesia ·
+ * Taktis Indonesia" linked to taktis.co.id would be ambiguous about which it points at.
+ */
+const cv = await getCv();
+const site = clientUrl ?? cv.data.roles.find((r) => r.key === cvKey)?.url;
+---
+<header class="case-study-header">
+  <h1>{headline}</h1>
+  <p class="dek">{dek}</p>
+
+  <dl class="meta">
+    <div><dt class="sign">Client</dt><dd>{businessLine ? `${employer} \u00b7 ${businessLine}` : employer}</dd></div>
+    <div><dt class="sign">Role</dt><dd>{role}</dd></div>
+    <div><dt class="sign">Period</dt><dd>{year}</dd></div>
+    <div><dt class="sign">Status</dt><dd>{status}</dd></div>
+    {
+      site && (
+        <div>
+          <dt class="sign">Site</dt>
+          <dd><a href={site} target="_blank" rel="noopener">{displayDomain(site)}</a></dd>
+        </div>
+      )
+    }
+    {
+      stack.length > 0 && (
+        <div class="stack-block">
+          <dt class="sign">Built with</dt>
+          <dd>
+            <ul class="stack">{stack.map((s) => <li>{s}</li>)}</ul>
+          </dd>
+        </div>
+      )
+    }
+  </dl>
+</header>
+
+<style>
+  .case-study-header {
+    padding-block-end: var(--spacing-xl);
+    margin-block-end: var(--spacing-xl);
+    border-bottom: var(--route-stroke) solid var(--color-route);
+  }
+
+  h1 { max-width: 18ch; }
+
+  .dek {
+    margin-block-start: var(--spacing-lg);
+    font-size: var(--font-size-lead);
+    line-height: var(--line-height-snug);
+    font-weight: 600;
+    max-width: 48ch;
+  }
+
+  /*
+   * The metadata sits BELOW the headline, never as a label above it, and takes the
+   * enamel sign plate the world calls for: a filled panel in --color-sheet, the only
+   * raised surface in the system.
+   */
+  .meta {
+    margin-block-start: var(--spacing-xl);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr));
+    gap: var(--spacing-lg);
+    background: var(--color-sheet);
+    border-top: var(--route-stroke) solid var(--color-route);
+    padding: var(--spacing-lg);
+  }
+  .meta > div { display: grid; gap: var(--spacing-2xs); align-content: start; }
+  .meta dd { font-size: var(--font-size-meta); font-weight: 700; line-height: var(--line-height-snug); }
+
+  .stack-block { grid-column: 1 / -1; }
+  .stack { display: flex; flex-wrap: wrap; gap: var(--spacing-xs) var(--spacing-lg); }
+  .stack li { font-size: var(--font-size-meta); font-weight: 700; }
+  /* separator rides the END of the preceding item, so it can never lead a wrapped line */
+  .stack li:not(:last-child)::after {
+    content: '';
+    display: inline-block;
+    vertical-align: 0.28em;
+    width: var(--route-stroke);
+    height: var(--route-stroke);
+    margin-inline-start: calc(var(--spacing-lg) / 2);
+    background: var(--color-route);
+  }
+
+  /* once items wrap, a trailing mark reads as attached to nothing: the gap separates */
+  @media (max-width: 40rem) {
+    .stack { gap: var(--spacing-xs) var(--spacing-md); }
+    .stack li:not(:last-child)::after { display: none; }
+  }
+</style>

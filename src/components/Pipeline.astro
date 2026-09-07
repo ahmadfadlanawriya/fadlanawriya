@@ -1,0 +1,115 @@
+---
+/**
+ * A process or funnel sequence — the signature element of this world.
+ *
+ * Real <ol> semantics: a screen reader announces "1, 2, 3", not "right arrow" five
+ * times. Connectors are drawn with borders on the items themselves, so 4 to 9 stages
+ * wrap gracefully instead of overflowing. Vertical below 40rem.
+ */
+interface Props {
+  stages: string[];
+  label?: string;
+}
+const { stages, label } = Astro.props;
+---
+<figure class="pipeline">
+  {label && <figcaption class="sign">{label}</figcaption>}
+  <ol>
+    {stages.map((stage) => <li><span>{stage}</span></li>)}
+  </ol>
+</figure>
+
+<style>
+  .pipeline {
+    margin-block: var(--spacing-xl);
+    /* .prose holds the measure, so max-width alone never released this. A width against
+       the route's field is what actually breaks it out. */
+    max-width: none;
+    width: min(
+      calc(100cqi - var(--route-inset, 0px)),
+      calc(var(--read-max) - var(--route-inset, 0px))
+    );
+  }
+
+  figcaption {
+    margin-block-end: var(--spacing-md);
+  }
+
+  ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-lg) 0;
+    padding: 0;
+    list-style: none;
+    /* prose.css caps every list at the 68ch measure; without releasing it here the
+       figure breaks out to the route's field but its stages stay inside the column. */
+    max-width: none;
+  }
+
+  li {
+    flex: 1 1 7.5rem;
+    position: relative;
+    border-top: var(--route-stroke) solid var(--color-route);
+    padding-block-start: var(--spacing-md);
+    padding-inline-end: var(--spacing-md);
+  }
+
+  /* the stop */
+  li::before {
+    content: '';
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    width: var(--tick-size);
+    height: var(--tick-size);
+    border-radius: var(--radius-tick);
+    background: var(--color-ground);
+    border: var(--route-stroke) solid var(--color-route);
+    transform: translate(-25%, -50%);
+  }
+
+  /* the terminus: the line ends, it does not just stop */
+  li:last-child {
+    flex-grow: 0;
+    padding-inline-end: 0;
+    min-width: 7.5rem;
+  }
+  li:last-child::after {
+    content: '';
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-end: 0;
+    width: var(--route-stroke);
+    height: calc(var(--tick-size) * 1.4);
+    background: var(--color-interchange);
+    transform: translateY(-40%);
+  }
+
+  li span {
+    display: block;
+    font-size: var(--font-size-small);
+    font-weight: 700;
+    line-height: var(--line-height-snug);
+    text-wrap: balance;
+  }
+
+  @media (max-width: 40rem) {
+    ol { display: grid; gap: 0; }
+    li {
+      border-top: 0;
+      border-inline-start: var(--route-stroke) solid var(--color-route);
+      padding-inline-start: var(--spacing-lg);
+      padding-block: var(--spacing-xs) var(--spacing-md);
+    }
+    li::before { transform: translate(-50%, 0); inset-block-start: 0.45em; }
+    li:last-child { min-width: 0; padding-block-end: var(--spacing-lg); }
+    li:last-child::after {
+      inset-inline: 0 auto;
+      inset-block-start: auto;
+      inset-block-end: 0;
+      width: calc(var(--tick-size) * 1.4);
+      height: var(--route-stroke);
+      transform: translateX(-40%);
+    }
+  }
+</style>

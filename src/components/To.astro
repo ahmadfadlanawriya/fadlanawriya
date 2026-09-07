@@ -1,0 +1,48 @@
+---
+/**
+ * The flow mark: "X to Y" in a sequence.
+ *
+ * Replaces the literal → character, which does not render in this site's typeface. The
+ * loaded Overpass subset covers U+2191 and U+2193 but not U+2192, and `unicode-range`
+ * gates usage rather than mere availability — so every → fell through to Helvetica,
+ * putting a second typeface on a site whose first typography rule forbids one.
+ *
+ * Drawn from the route stroke instead, the way the prose bullet and the tag separator
+ * already are. A head is necessary, not decorative: a bare dash would read "Rp35M–Rp17M"
+ * as a range rather than a sequence.
+ *
+ * Sized in em so it tracks the text it sits in — the same content-relative measure the
+ * prose bullet uses for its optical offset.
+ */
+---
+<span class="to"><span class="visually-hidden"> to </span><span class="mark" aria-hidden="true"></span></span>
+
+<style>
+  .to {
+    display: inline-block;
+    white-space: nowrap;
+  }
+
+  .mark {
+    display: inline-block;
+    position: relative;
+    width: 0.95em;
+    height: var(--route-stroke);
+    margin-inline: 0.3em 0.62em;
+    background: currentColor;
+    vertical-align: 0.22em;
+  }
+
+  /* the head, drawn — never a glyph */
+  .mark::after {
+    content: '';
+    position: absolute;
+    inset-inline-end: 0;
+    inset-block-start: 50%;
+    width: 0;
+    height: 0;
+    border-inline-start: 0.34em solid currentColor;
+    border-block: 0.27em solid transparent;
+    transform: translate(0.34em, -50%);
+  }
+</style>

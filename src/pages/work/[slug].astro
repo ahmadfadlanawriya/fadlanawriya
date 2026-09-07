@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CaseStudyHeader from '../../components/CaseStudyHeader.astro';
+import DataTable from '../../components/DataTable.astro';
+import Pipeline from '../../components/Pipeline.astro';
+import Wallmap from '../../components/Wallmap.astro';
+import To from '../../components/To.astro';
+import NoBareImage from '../../components/NoBareImage.astro';
+import { getWork } from '../../lib/content';
+import { render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const work = await getWork();
+  return work.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+<BaseLayout title={`${entry.data.headline} — ${entry.data.employer}`} description={entry.data.dek}>
+  <article>
+    <CaseStudyHeader entry={entry} />
+    <div class="route terminates">
+      <div class="prose">
+        <Content components={{ DataTable, Pipeline, Wallmap, To, img: NoBareImage }} />
+      </div>
+    </div>
+  </article>
+  <p class="back"><a href="/#work">All work</a></p>
+</BaseLayout>
+
+<style>
+  /* A long read wants a narrower page than the index: the measure plus the route rail,
+     not the full 74rem, so the column is not stranded against a wide empty right. */
+  article {
+    max-width: var(--read-max);
+    /* the field a wall map measures itself against */
+    container-type: inline-size;
+  }
+
+  .back {
+    max-width: var(--read-max);
+    margin-block-start: var(--spacing-2xl);
+    padding-block-start: var(--spacing-lg);
+    border-top: 1px solid var(--color-rule);
+    font-weight: 700;
+  }
+</style>

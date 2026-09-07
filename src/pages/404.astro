@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Page not found" description="That page does not exist.">
+  <div class="hero">
+    <h1>End of the line</h1>
+    <p class="dek">That page does not exist, or it has moved.</p>
+  </div>
+  <ul class="onward">
+    <li><a href="/">Home</a></li>
+    <li><a href="/#work">Work</a></li>
+    <li><a href="/cv">CV</a></li>
+  </ul>
+</BaseLayout>
+
+<style>
+  .hero { padding-block: var(--spacing-3xl) var(--spacing-xl); }
+  h1 { font-size: var(--font-size-h2); }
+  .dek { margin-block-start: var(--spacing-md); font-size: var(--font-size-lead); }
+  .onward {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-lg) var(--spacing-xl);
+    padding-block-start: var(--spacing-lg);
+    border-top: var(--route-stroke) solid var(--color-route);
+    font-weight: 700;
+  }
+</style>

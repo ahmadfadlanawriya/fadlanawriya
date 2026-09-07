@@ -1,0 +1,52 @@
+---
+import type { WorkEntry } from '../lib/content';
+
+interface Props {
+  entry: WorkEntry;
+  /** Heading level, so the card nests correctly under whatever precedes it. */
+  headingLevel?: 'h3' | 'h4';
+}
+const { entry, headingLevel = 'h3' } = Astro.props;
+const Heading = headingLevel;
+const { headline, dek, businessLine, year } = entry.data;
+---
+<article class="work-card">
+  <Heading><a href={`/work/${entry.id}`}>{headline}</a></Heading>
+  <p class="dek">{dek}</p>
+  <p class="meta sign">
+    {businessLine && <span>{businessLine}</span>}
+    <span>{year}</span>
+  </p>
+</article>
+
+<style>
+  .work-card {
+    padding-block: var(--spacing-lg);
+    border-bottom: 1px solid var(--color-rule);
+  }
+  .work-card:last-child { border-bottom: 0; }
+
+  a {
+    color: var(--color-ink);
+    text-decoration: none;
+    display: inline-block;
+  }
+  a:hover, a:focus-visible {
+    color: var(--color-route);
+    text-decoration: underline;
+    text-decoration-thickness: var(--route-stroke);
+  }
+
+  .dek {
+    margin-block-start: var(--spacing-sm);
+    max-width: 54ch;
+    color: var(--color-ink-quiet);
+  }
+
+  .meta {
+    margin-block-start: var(--spacing-sm);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+  }
+</style>

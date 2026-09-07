@@ -1,0 +1,384 @@
+---
+/**
+ * A capture of a real system, quoted onto the station plate and keyed like a station
+ * wall map: numbered marks over the capture, a numbered key beneath it.
+ *
+ * The capture is QUOTED material. Its colours are a record of something that exists,
+ * not a decision made here — which is why the plate and the source line are mandatory
+ * rather than decorative. They are the quotation marks. See DESIGN.md, Imagery.
+ *
+ * MDX content files are import-free by design, so `src` is a bare filename resolved
+ * against src/assets/work/ through an eager glob. Vite compiles the glob to static
+ * imports, so every file still goes through Astro's image pipeline; nothing resolves
+ * at runtime and no client JS ships.
+ *
+ * Redaction is NOT performed here. A DOM overlay ships the original pixels and can be
+ * removed in devtools, so bars are burned into the file before it reaches the repo.
+ * This component only carries the honest half: the note saying what was removed.
+ */
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+export interface Callout {
+  /** Percent from the capture's left edge, 0-100. Positions the centre of the mark. */
+  x: number;
+  /** Percent from the capture's top edge, 0-100. */
+  y: number;
+  /** Sign lettering. Two to four words, sentence case - the CSS does the shouting. */
+  label: string;
+  /** One line. It must still make its point with the capture gone: below 40rem it is. */
+  note: string;
+}
+
+export interface Capture {
+  /** File name inside src/assets/work/, extension included. */
+  src: string;
+  /** What is on the screen. Not the argument - the key carries that. */
+  alt: string;
+  /** Only for a pair: "As acquired" / "Staged", or "Back office" / "Field agent". */
+  label?: string;
+  /**
+   * One line under the label saying what this surface is for. A pair takes no numbered
+   * marks, so this is where a desk-and-pocket pairing explains itself; a before/after
+   * usually needs nothing, because the comparison is its own argument.
+   */
+  note?: string;
+}
+
+interface Props {
+  captures: Capture[];
+  /** Provenance, in sign lettering: "Beeja CRM · Qualified lead queue". */
+  source: string;
+  /** What was removed from the file. Required when a file is named *.redacted.*. */
+  redaction?: string;
+  /** Single-capture only. A pair's comparison is its own argument. */
+  callouts?: Callout[];
+  /**
+   * How a pair is arranged.
+   *   compare - equal columns, matched aspects. A before/after.
+   *   pocket  - a wall map beside the pocket map you carry: a wide surface and the
+   *             handset version of it. Two scales for two situations.
+   * Declared rather than inferred from aspect ratio, so the call site says what it means
+   * and a wrong pairing fails loudly instead of being guessed at.
+   */
+  layout?: 'compare' | 'pocket';
+}
+
+const { captures, source, redaction, callouts = [], layout = 'compare' } = Astro.props;
+
+const SHOTS = import.meta.glob<ImageMetadata>(
+  '/src/assets/work/*.{png,jpg,jpeg,webp,avif}',
+  { eager: true, import: 'default' },
+);
+
+if (captures.length < 1 || captures.length > 2) {
+  throw new Error(`Wallmap: expected 1 or 2 captures, got ${captures.length} (source: ${source}).`);
+}
+if (captures.length === 2 && callouts.length > 0) {
+  throw new Error(
+    `Wallmap (${source}): a paired capture cannot take callouts — the comparison is the ` +
+      `argument, and numbered marks would fight it. Use labels on each capture instead.`,
+  );
+}
+
+const resolved = captures.map((capture) => {
+  const image = SHOTS[`/src/assets/work/${capture.src}`];
+  if (!image) {
+    const present = Object.keys(SHOTS).map((k) => k.split('/').pop()).sort();
+    throw new Error(
+      `Wallmap: "${capture.src}" is not in src/assets/work/. Present: ${present.join(', ') || '(none)'}`,
+    );
+  }
+  // A file that was altered must say so. Never let a redaction go undeclared.
+  if (capture.src.includes('.redacted.') && !redaction) {
+    throw new Error(
+      `Wallmap: "${capture.src}" is redacted but no \`redaction\` note was supplied. ` +
+        `An undeclared alteration is a false statement to every reader.`,
+    );
+  }
+  return { ...capture, image };
+});
+
+callouts.forEach((c, i) => {
+  if (c.x < 0 || c.x > 100 || c.y < 0 || c.y > 100) {
+    throw new Error(`Wallmap (${source}): callout ${i + 1} is off the capture (${c.x}, ${c.y}).`);
+  }
+});
+
+const isPair = resolved.length === 2;
+const isPocket = layout === 'pocket';
+
+if (isPocket && !isPair) {
+  throw new Error(
+    `Wallmap (${source}): layout="pocket" needs exactly two captures — the wall map and ` +
+      `the pocket map. Got ${resolved.length}.`,
+  );
+}
+
+/*
+ * Network values, not design values. The plate spans the route's field, which caps at
+ * 54rem (read-max minus the rail). A compare pair splits that evenly; a pocket pair does
+ * not — the handset renders around 160px, so serving it a half-field derivative is waste.
+ * An explicit width is required: without one Astro's fallback `src` is the full-resolution
+ * derivative.
+ */
+function sizingFor(index: number) {
+  if (isPocket) {
+    return index === 0
+      ? { width: 632, widths: [432, 632, 948, 1264], sizes: '(min-width: 64rem) 40rem, 100vw' }
+      : { width: 168, widths: [168, 252, 336], sizes: '(min-width: 40rem) 10.5rem, 14rem' };
+  }
+  if (isPair) {
+    return { width: 432, widths: [432, 648, 864], sizes: '(min-width: 40rem) 26rem, 100vw' };
+  }
+  return {
+    width: 864,
+    widths: [432, 648, 864, 1296, 1728],
+    sizes: '(min-width: 64rem) 54rem, 100vw',
+  };
+}
+
+const hasKey = callouts.length > 0 || Boolean(redaction);
+---
+<figure class="wallmap">
+  <p class="sign source">{source}</p>
+
+  <div class:list={['frames', { pair: isPair, pocket: isPocket }]}>
+    {
+      resolved.map((capture, index) => {
+        const sizing = sizingFor(index);
+        return (
+          <div class="capture">
+            <div class="frame">
+              <Image
+                src={capture.image}
+                alt={capture.alt}
+                width={sizing.width}
+                widths={sizing.widths}
+                sizes={sizing.sizes}
+                quality="high"
+              />
+              {!isPair && callouts.length > 0 && (
+                <div class="marks" aria-hidden="true">
+                  {callouts.map((c, i) => (
+                    <span class="mark" style={`--x:${c.x}%;--y:${c.y}%`}>{i + 1}</span>
+                  ))}
+                </div>
+              )}
+            </div>
+            {(capture.label || capture.note) && (
+              <div class="capture-key">
+                {capture.label && <p class="sign capture-label">{capture.label}</p>}
+                {capture.note && <p class="capture-note">{capture.note}</p>}
+              </div>
+            )}
+          </div>
+        );
+      })
+    }
+  </div>
+
+  {
+    hasKey && (
+      <figcaption class="key">
+        {callouts.length > 0 && (
+          <ol class="legend">
+            {callouts.map((c, i) => (
+              <li>
+                {/* The digit is real text, not a CSS counter: list-style:none strips list
+                    semantics in Safari, and generated content is announced inconsistently.
+                    One array, one number, both places, so they cannot drift. */}
+                <span class="mark">{i + 1}</span>
+                <span class="sign">{c.label}</span>
+                <span class="note">{c.note}</span>
+              </li>
+            ))}
+          </ol>
+        )}
+        {redaction && <p class="provenance">{redaction}</p>}
+      </figcaption>
+    )
+  }
+</figure>
+
+<style>
+  /*
+   * The plate: the one raised surface in the system, taken here for the same reason the
+   * metadata plate takes it — this block is not the page's own voice, it is something
+   * quoted and mounted.
+   *
+   * It spans the route's field rather than the reading measure. That is not only for
+   * legibility; it is what keeps the quoted colours OUT of the reading column, which is
+   * where the Achromatic Column Rule bans them. The min() guards the case where the
+   * container is missing, so the plate can never outgrow the article's own field.
+   */
+  .wallmap {
+    margin-block: var(--spacing-xl);
+    width: min(
+      calc(100cqi - var(--route-inset, 0px)),
+      calc(var(--read-max) - var(--route-inset, 0px))
+    );
+    max-width: none;
+    background: var(--color-sheet);
+    border-top: var(--route-stroke) solid var(--color-route);
+    padding: var(--spacing-lg);
+    --mark-size: calc(var(--tick-size) * 2);
+  }
+
+  .source { margin-block-end: var(--spacing-md); }
+
+  .frames { display: grid; gap: var(--spacing-lg); }
+  .frames.pair { grid-template-columns: 1fr 1fr; }
+
+  /*
+   * The pocket map: a wall map with the hand-sized version beside it. Columns are not
+   * equal — the handset is a handset. At this field width a column near 19% brings the
+   * two captures to within a few pixels of the same height on their own, so the pairing
+   * balances without being forced to.
+   *
+   * Not self-sized to the wall map's height: an `auto` column's width would depend on the
+   * row height, which depends on the other column's width. Circular. A clamped column and
+   * a shared bottom edge get the same result and always resolve.
+   */
+  .frames.pocket { grid-template-columns: 1fr clamp(6.5rem, 19%, 10.5rem); }
+
+  /*
+   * Frames and labels must be rows of the SAME grid, not of two independent ones —
+   * otherwise a two-line caption beside a three-line one pushes the frames to different
+   * heights. `display: contents` promotes each capture's frame and key into the parent
+   * grid, and column flow puts frame/key in rows 1 and 2 of each column.
+   *
+   * Frames then bottom-align on a common edge, like two maps mounted on one rail, and
+   * every label starts at the same y whatever it wraps to.
+   */
+  .frames.pair {
+    grid-auto-flow: column;
+    grid-template-rows: auto auto;
+    gap: var(--spacing-sm) var(--spacing-lg);
+  }
+  .frames.pair .capture { display: contents; }
+  .frames.pair .frame { align-self: end; }
+
+  /*
+   * Mounted flush: no border box, no radius, no shadow. The hairlines above and below
+   * are the system's record dividers, and they are what stops a light-backed capture
+   * dissolving into the station fill.
+   */
+  .frame {
+    position: relative;
+    border-block: 1px solid var(--color-rule);
+  }
+  /* a single map is mounted edge to edge in its frame */
+  .frames:not(.pair) .frame { margin-inline: calc(var(--spacing-lg) * -1); }
+
+  /* scoped styles do not reach a child component's output, hence :global */
+  .frame > :global(img) { width: 100%; height: auto; display: block; }
+
+  .capture-key { margin-block-start: var(--spacing-sm); }
+
+  .capture-note {
+    margin-block-start: var(--spacing-2xs);
+    font-size: var(--font-size-small);
+    line-height: var(--line-height-body);
+    color: var(--color-ink-quiet);
+    max-width: 34ch;
+  }
+
+  .marks { position: absolute; inset: 0; pointer-events: none; }
+
+  /*
+   * A key mark: the station tick at the one size that can hold lettering. A new member
+   * of the tick family, not the tick itself. It is NOT interactive, so it never takes
+   * .tick-target — a key on a wall does not respond to approach, and the One Moment
+   * Rule stays intact. The digit is plain text: a circled numeral glyph is outside the
+   * latin subset and would silently substitute a second typeface.
+   */
+  .mark {
+    display: grid;
+    place-items: center;
+    width: var(--mark-size);
+    height: var(--mark-size);
+    border-radius: var(--radius-tick);
+    background: var(--color-ground);
+    border: var(--route-stroke) solid var(--color-route);
+    color: var(--color-ink);
+    font-size: var(--font-size-micro);
+    font-weight: 700;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .marks .mark {
+    position: absolute;
+    inset-inline-start: var(--x);
+    inset-block-start: var(--y);
+    transform: translate(-50%, -50%);
+  }
+
+  .key { padding-block-start: var(--spacing-lg); }
+
+  .legend {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    gap: var(--spacing-lg);
+    padding: 0;
+    max-width: none;
+    list-style: none;
+  }
+
+  .legend li {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: var(--spacing-sm);
+    row-gap: var(--spacing-2xs);
+    align-items: start;
+  }
+  .legend .mark { grid-row: 1; }
+  .legend .sign { grid-column: 2; align-self: center; }
+  .legend .note {
+    grid-column: 2;
+    font-size: var(--font-size-meta);
+    line-height: var(--line-height-body);
+    max-width: 34ch;
+  }
+
+  /* provenance is a sentence, so it is not sign lettering */
+  .provenance {
+    margin-block-start: var(--spacing-lg);
+    font-size: var(--font-size-small);
+    color: var(--color-ink-quiet);
+    max-width: 52ch;
+  }
+
+  @media (max-width: 40rem) {
+    /*
+     * At 320px the capture draws at roughly a sixth of its own scale: the marks would
+     * collide and none could be read, and an unreadable mark over an unreadable capture
+     * is worse than no mark. They are dropped. The capture stays — it is the evidence
+     * that the thing exists — and the key already carries the argument, which is why
+     * every note must stand on its own.
+     */
+    .marks { display: none; }
+    .wallmap { padding: var(--spacing-md); }
+    .frames:not(.pair) .frame { margin-inline: calc(var(--spacing-md) * -1); }
+    /*
+     * Column flow must be undone as well as the columns: grid-auto-flow: column creates
+     * IMPLICIT columns even against grid-template-columns: 1fr, which left the wall map
+     * crushed to a thumbnail beside a full-size handset.
+     */
+    .frames.pair,
+    .frames.pocket {
+      grid-auto-flow: row;
+      grid-template-columns: 1fr;
+      grid-template-rows: none;
+    }
+    /* row flow puts frame, key, frame, key in sequence — separate the two captures */
+    .frames.pair .capture:last-child .frame { margin-block-start: var(--spacing-lg); }
+    /* stacked, a handset must not stretch to the plate's width — it is still a handset */
+    .frames.pocket .capture:last-child .frame {
+      max-width: 14rem;
+      margin-inline: auto;
+    }
+    .legend { grid-template-columns: 1fr; gap: var(--spacing-md); }
+  }
+</style>

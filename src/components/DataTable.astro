@@ -1,0 +1,145 @@
+---
+/**
+ * One table component for every table shape in the case studies:
+ *   - 2 columns, label -> value (Beeja results)
+ *   - 3 columns, label + two dated periods (Broom growth, Pashouses before/after)
+ *   - 3 columns of prose (Taktis MECE issue tree)
+ *
+ * Restacks at narrow widths rather than scrolling: each cell carries its column label,
+ * hidden on wide screens and revealed when the rows stack, so the header association
+ * survives without JavaScript.
+ */
+interface Row {
+  cells: string[];
+  emphasis?: boolean;
+}
+interface Props {
+  rows: Row[];
+  columns?: string[];
+  caption?: string;
+  numeric?: boolean;
+}
+const { rows, columns, caption, numeric = false } = Astro.props;
+---
+<table class:list={['data-table', { numeric }]}>
+  {caption && <caption class="sign">{caption}</caption>}
+  {
+    columns && (
+      <thead>
+        <tr>
+          {columns.map((c, i) => (i === 0 ? <td>{c}</td> : <th scope="col">{c}</th>))}
+        </tr>
+      </thead>
+    )
+  }
+  <tbody>
+    {
+      rows.map((row) => (
+        <tr class:list={[{ emphasis: row.emphasis }]}>
+          {row.cells.map((cell, i) =>
+            i === 0 ? (
+              <th scope="row">{cell}</th>
+            ) : (
+              <td>
+                {columns?.[i] && <span class="cell-label" aria-hidden="true">{columns[i]}</span>}
+                <span class="cell-value">{cell}</span>
+              </td>
+            ),
+          )}
+        </tr>
+      ))
+    }
+  </tbody>
+</table>
+
+<style>
+  .data-table {
+    /* .prose holds the measure; a width against the route's field is what releases it */
+    width: min(
+      calc(100cqi - var(--route-inset, 0px)),
+      calc(var(--read-max) - var(--route-inset, 0px))
+    );
+    max-width: none;
+    border-collapse: collapse;
+    margin-block: var(--spacing-xl);
+    font-size: var(--font-size-meta);
+  }
+
+  caption {
+    text-align: left;
+    margin-block-end: var(--spacing-md);
+  }
+
+  thead th,
+  thead td {
+    font-size: var(--font-size-micro);
+    font-weight: 700;
+    letter-spacing: var(--tracking-sign);
+    text-transform: uppercase;
+    color: var(--color-ink-quiet);
+    text-align: left;
+    padding: 0 var(--spacing-md) var(--spacing-xs) 0;
+    border-bottom: var(--route-stroke) solid var(--color-route);
+  }
+  thead th:not(:first-child) { text-align: right; }
+
+  tbody th,
+  tbody td {
+    text-align: left;
+    padding: var(--spacing-sm) var(--spacing-md) var(--spacing-sm) 0;
+    border-bottom: 1px solid var(--color-rule);
+    vertical-align: baseline;
+  }
+
+  tbody th {
+    font-weight: 400;
+    color: var(--color-ink);
+    padding-inline-end: var(--spacing-lg);
+  }
+
+  tbody td:last-child { padding-inline-end: 0; }
+
+  /* numeric tables right-align their figures and lock the digits to one width */
+  .numeric tbody td {
+    text-align: right;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum' 1;
+  }
+
+  /* the live row: carried by weight and a heavier ink rule, never by colour in the measure */
+  tr.emphasis th,
+  tr.emphasis td {
+    border-bottom-color: var(--color-ink);
+    border-bottom-width: 2px;
+    font-weight: 700;
+  }
+
+  .cell-label { display: none; }
+
+  @media (max-width: 40rem) {
+    thead { display: none; }
+    tbody tr { display: block; padding-block: var(--spacing-md); border-bottom: 1px solid var(--color-rule); }
+    tbody tr:last-child { border-bottom: 0; }
+    tbody th,
+    tbody td { display: block; border: 0; padding: 0; }
+    tbody th {
+      font-weight: 700;
+      margin-block-end: var(--spacing-xs);
+      padding-inline-end: 0;
+    }
+    .numeric tbody td { text-align: left; }
+    tbody td { display: flex; gap: var(--spacing-md); justify-content: space-between; padding-block: var(--spacing-2xs); }
+    .cell-label {
+      display: block;
+      font-size: var(--font-size-micro);
+      font-weight: 700;
+      letter-spacing: var(--tracking-sign);
+      text-transform: uppercase;
+      color: var(--color-ink-quiet);
+      flex: 0 0 auto;
+    }
+    tr.emphasis { border-bottom-width: 2px; border-bottom-color: var(--color-ink); }
+    tr.emphasis th, tr.emphasis td { border: 0; }
+  }
+</style>

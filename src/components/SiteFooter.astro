@@ -1,0 +1,42 @@
+---
+import ContactActions from './ContactActions.astro';
+import { getProfile } from '../lib/content';
+const { data } = await getProfile();
+---
+<footer>
+  <div class="inner zone-layout">
+    <div class="zone">
+      <h2 class="sign">Terminus</h2>
+    </div>
+    <div>
+      <p class="ask">Open to senior growth roles. The fastest way to reach me is email.</p>
+      <ContactActions />
+      {data.location && <p class="where">{data.location}</p>}
+    </div>
+  </div>
+</footer>
+
+<style>
+  footer {
+    border-top: var(--route-stroke) solid var(--color-route);
+    margin-block-start: var(--spacing-3xl);
+    padding-inline: var(--page-gutter);
+    padding-block: var(--spacing-2xl) var(--spacing-3xl);
+    background: var(--color-sheet);
+  }
+
+  .inner { max-width: var(--page-max); margin-inline: auto; }
+
+  .ask {
+    margin-block: 0 var(--spacing-lg);
+    font-size: var(--font-size-lead);
+    line-height: var(--line-height-snug);
+    max-width: 40ch;
+  }
+
+  .where {
+    margin-block-start: var(--spacing-xl);
+    font-size: var(--font-size-meta);
+    color: var(--color-ink-quiet);
+  }
+</style>

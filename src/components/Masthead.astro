@@ -1,0 +1,57 @@
+---
+import { getProfile } from '../lib/content';
+const { data } = await getProfile();
+const path = Astro.url.pathname;
+---
+<header class="masthead">
+  <div class="inner">
+    <a class="wordmark" href="/">{data.name}</a>
+    <nav aria-label="Primary">
+      <a href="/#work" aria-current={path === '/' ? 'page' : undefined}>Work</a>
+      <a href="/cv" aria-current={path === '/cv' ? 'page' : undefined}>CV</a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .masthead {
+    border-bottom: 1px solid var(--color-rule);
+    padding-inline: var(--page-gutter);
+    padding-block: var(--spacing-md);
+  }
+
+  .inner {
+    max-width: var(--page-max);
+    margin-inline: auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-md) var(--spacing-xl);
+    align-items: baseline;
+    justify-content: space-between;
+  }
+
+  .wordmark {
+    font-size: var(--font-size-meta);
+    font-weight: 900;
+    letter-spacing: var(--tracking-sign);
+    text-transform: uppercase;
+    color: var(--color-ink);
+    text-decoration: none;
+  }
+  .wordmark:hover, .wordmark:focus-visible { color: var(--color-route); }
+
+  nav { display: flex; gap: var(--spacing-lg); }
+
+  nav a {
+    font-size: var(--font-size-small);
+    font-weight: 700;
+    letter-spacing: var(--tracking-sign);
+    text-transform: uppercase;
+    color: var(--color-ink-quiet);
+    text-decoration: none;
+    padding-block-end: var(--spacing-2xs);
+    border-bottom: var(--route-stroke) solid transparent;
+  }
+  nav a:hover, nav a:focus-visible { color: var(--color-ink); border-bottom-color: var(--color-route); }
+  nav a[aria-current='page'] { color: var(--color-ink); border-bottom-color: var(--color-interchange); }
+</style>

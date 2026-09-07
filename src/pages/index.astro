@@ -1,0 +1,140 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import WorkCard from '../components/WorkCard.astro';
+import ExperienceList from '../components/ExperienceList.astro';
+import LineIndex from '../components/LineIndex.astro';
+import { getProfile, getWorkByEmployer, getRolesWithoutStudies, displayDomain } from '../lib/content';
+import { render } from 'astro:content';
+
+const profile = await getProfile();
+const { Content } = await render(profile);
+const groups = await getWorkByEmployer();
+// Only roles the work index does NOT already cover, so the homepage tells the whole
+// career without listing the same three employers twice.
+const earlierRoles = await getRolesWithoutStudies();
+---
+<BaseLayout
+  title={`${profile.data.name} — Senior Growth Manager`}
+  description={profile.data.headline}
+>
+  <div class="hero">
+    <h1>{profile.data.headline}</h1>
+    {profile.data.draft && <p class="draft-marker">DRAFT COPY — not yet approved</p>}
+    <LineIndex />
+  </div>
+
+  <div class="route terminates">
+    <section class="station">
+      <h2 class="visually-hidden">Positioning</h2>
+      <div class="prose lead-prose prose-block"><Content /></div>
+    </section>
+
+    <section class="station interchange" id="work">
+      <h2>Selected work</h2>
+      <p class="section-note">Four constraints, four systems built to remove them.</p>
+      {
+        groups.map((group) => (
+          <section class="employer-group zone-layout">
+            <div class="zone">
+              <h3>{group.employer}</h3>
+              <p class="employer-meta sign">
+                <span>{group.title}</span>
+                <span>{group.start} &ndash; {group.end}</span>
+                {group.location && <span>{group.location}</span>}
+              </p>
+              {
+                group.url && (
+                  <p class="employer-site">
+                    <a href={group.url} target="_blank" rel="noopener">{displayDomain(group.url)}</a>
+                  </p>
+                )
+              }
+            </div>
+            <div class="stations">
+              {group.entries.map((entry) => <WorkCard entry={entry} headingLevel="h4" />)}
+            </div>
+          </section>
+        ))
+      }
+    </section>
+
+    <section class="station zone-layout" id="experience">
+      <div class="zone">
+        <h2>Earlier</h2>
+      </div>
+      <div>
+        <ExperienceList roles={earlierRoles} density="compact" />
+        <p class="more"><a href="/cv">Read the full CV</a></p>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .hero {
+    padding-block: var(--spacing-xl) var(--spacing-2xl);
+    border-bottom: var(--route-stroke) solid var(--color-route);
+    margin-block-end: var(--spacing-2xl);
+  }
+
+  h1 { max-width: 24ch; }
+
+  .draft-marker {
+    margin-block-start: var(--spacing-lg);
+    display: inline-block;
+    font-size: var(--font-size-micro);
+    font-weight: 700;
+    letter-spacing: var(--tracking-sign);
+    text-transform: uppercase;
+    color: var(--color-interchange);
+    border: 2px dashed var(--color-interchange);
+    padding: var(--spacing-xs) var(--spacing-sm);
+  }
+
+  .lead-prose { font-size: var(--font-size-lead); line-height: var(--line-height-snug); }
+  .lead-prose :global(p) { max-width: 56ch; }
+
+  .section-note {
+    margin-block-start: var(--spacing-sm);
+    color: var(--color-ink-quiet);
+    max-width: 46ch;
+  }
+
+  /*
+   * Zone label opposite its stations: the wide right margin was declared void by
+   * full-width rules and given nothing to do. In this world a zone carries its name
+   * and span beside the stops it contains, so the width is used rather than hidden.
+   */
+  .employer-group {
+    margin-block-start: var(--spacing-xl);
+    padding-block-start: var(--spacing-lg);
+    border-top: 1px solid var(--color-rule-strong);
+  }
+
+  .employer-group h3 { font-size: var(--font-size-station); }
+
+  .employer-meta {
+    margin-block-start: var(--spacing-sm);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-2xs) var(--spacing-lg);
+  }
+
+  @media (min-width: 64rem) {
+    .employer-meta { display: grid; gap: var(--spacing-2xs); }
+  }
+
+  .more { margin-block-start: var(--spacing-lg); font-weight: 700; }
+
+  /* The bare domain is its own external-link indicator; no icon is drawn or borrowed. */
+  .employer-site {
+    margin-block-start: var(--spacing-sm);
+    font-size: var(--font-size-micro);
+    font-weight: 700;
+    letter-spacing: var(--tracking-sign);
+  }
+  .employer-site a {
+    color: var(--color-route);
+    text-decoration-thickness: 2px;
+  }
+</style>
