@@ -1,0 +1,237 @@
+---
+cvKey: broom
+employer: Broom Indonesia
+businessLine: Taktis · Direct marketing
+clientUrl: https://taktis.co.id
+year: Jul 2024 – present
+role: Senior Growth Manager
+status: Current role
+headline: Building a Second Acquisition Channel Where Every Lead Lives on WhatsApp
+dek: >-
+  Standing up direct marketing from zero inside an established field-sales business —
+  2x MQL output in a month, 75% less ad spend, and a diagnosis that ended a
+  recurring argument about why deals died.
+stack:
+  - Meta Ads (CTWA)
+  - Wati.io
+  - Python (pandas, matplotlib, python-pptx)
+  - SVG/HTML
+  - Google Sheets
+  - Coda
+order: 3
+draft: false
+---
+
+## Context
+
+**Taktis Indonesia** is Broom's direct selling arm in **BPKB gadai** — vehicle title
+lending, where a borrower refinances against the ownership document of their car or
+motorcycle. Taktis sits between borrowers and the multifinance partners who underwrite and
+disburse.
+
+The commercial model shapes everything: **revenue is commission-based and recognised only
+at GoLive** — the moment a loan is approved and disbursed. Every stage before that is a
+pure cost centre. A lead that reaches the final step and dies costs exactly as much as one
+that never engaged.
+
+**The business grew on field sales.** From launch through Q3 2025, Taktis ran entirely on
+its commercial team working regions directly — roughly **doubling monthly GMV** as headcount
+and regional coverage expanded. That team
+remains the majority contributor today.
+
+**In Q4 2025 we opened a second front.** Direct selling and direct marketing — paid
+acquisition into WhatsApp, qualified by telesales, submitted to leasing partners. A
+different motion, a different funnel, and no existing infrastructure.
+
+**The rationale was margin, not volume.** A field-sourced deal carries a commission to the
+commercial team; a lead sourced through direct marketing carries none. Same revenue,
+roughly double to triple the contribution.
+
+And the longer play: once the channel produces surplus volume, it can *supply* leads to the
+field team at a reduced commission rate — lowering blended acquisition cost across the
+whole business. Direct marketing was never intended to replicate the commercial team. It
+was built to change Taktis's cost structure and give it a second source of demand it fully
+owns.
+
+That channel is what this case is about. I owned it end to end.
+
+## The Problem
+
+Three structural constraints, all at once:
+
+- **Every lead lives on WhatsApp.** Acquisition ran through Click-to-WhatsApp Meta Ads into
+  a WhatsApp CRM. No traditional CRM, no clean event stream.
+- **Revenue sits at the end of a four-stage funnel**, and the final stage is controlled by
+  external leasing partners.
+- **No consolidated view** between "lead arrived" and "loan disbursed."
+
+Ad spend was flowing. We could not tell a good lead from a bad one, and we could not say
+why deals died. Every fortnightly review cycled through the same three anecdotes — the
+leads are bad, the partners reject too much, customers cancel too easily — with nobody able
+to settle it.
+
+## A Shared Funnel, Then a Pipeline
+
+I anchored the operation on a four-stage funnel that became the shared vocabulary across
+Growth, Sales and Finance:
+
+<Pipeline
+  label="Taktis acquisition funnel"
+  stages={["1_Leads", "2_Kirim Hitungan", "3_MQL", "4_GoLive"]}
+/>
+
+Kirim Hitungan is the estimation sent to the borrower; MQL is submission to a leasing
+partner; GoLive is disbursement.
+
+Every record carries three orthogonal fields — **funnel_status** (active / drop-off /
+GoLive), **sub_tag** (reason detail), and **drop_off_by** (customer / Taktis / leasing).
+That turned *why do deals die?* from a debate into a filterable query.
+
+**The lead intelligence pipeline** ingests three raw sources weekly — WhatsApp CRM tag
+exports, raw chat archives, and the telesales logbook — into a single tagged master
+covering **14,480 leads across 27 fields**. Phone normalisation, tag-to-funnel mapping,
+chat content extraction (vehicle type, year, image detection), logbook cross-referencing,
+dedup.
+
+One rule made it trustworthy: **the human logbook is ground truth.** Chat signals and CRM
+tags can be wrong; an agent updating a shared logbook cannot be. Where signals conflict,
+the logbook wins.
+
+On top of it: monthly trend charts, interactive SVG funnel flowcharts, and multi-slide
+leadership decks generated in Python on a two-week cadence.
+
+## Standing Up Telesales
+
+August 2025. The largest and most expensive leak was **Kirim Hitungan <To /> MQL** — the point
+where a lead has to hand over identity documents, vehicle papers and financial detail.
+Bots, static replies and generic broadcasts weren't closing it.
+
+I built a three-agent function from zero: business case, headcount plan, hiring brief, SOP,
+MQL definitions, escalation paths to leasing partners, and the weekly review cadence.
+Day-to-day queue management, coaching and script iteration went to the Supervisor.
+
+Two design decisions mattered more than the hiring:
+
+**Keep the scope narrow.** The team owned exactly one conversion — Kirim Hitungan <To /> MQL —
+for its first eight months. The temptation was to hand them broadcast, re-engagement and
+cross-sell as well. Resisting that is what made the conversion improvement visible and
+attributable.
+
+**Make the logbook the data layer.** The telesales logbook I designed for operational
+tracking became the ground-truth layer of the entire pipeline. Operational instrumentation
+and analytical instrumentation were the same artifact.
+
+## Diagnosing Where Revenue Actually Died
+
+Q1 2026. Top of funnel was solved. MQL volume was climbing. **GoLive — the only stage that
+produces revenue — was flat.**
+
+So I ran a **MECE issue tree** on the MQL <To /> GoLive drop-off, structured into four mutually
+exclusive, collectively exhaustive branches:
+
+<DataTable
+  caption="MECE decomposition of the MQL-to-GoLive drop-off"
+  columns={["Branch", "Cause", "Fixable?"]}
+  rows={[
+    { cells: ["A — Bad Credit", "Fails partner underwriting threshold", "Only upstream, via targeting"] },
+    { cells: ["B — Customer Cancel", "Walks away post-submission", "Partly — response times, follow-up cadence"] },
+    { cells: ["C — Eligibility Mismatch", "Vehicle age, ownership, geography, documents", "Yes — telesales qualification SOP"] },
+    { cells: ["D — Partner Rejection", "Non-credit decline: portfolio, policy, capacity", "Partly — partner routing and diversification"] },
+  ]}
+/>
+
+Every MQL-stage drop-off was classified into exactly one branch using fields already
+flowing through the pipeline. Validated against a 100-record sample for zero overlap and
+full coverage.
+
+What it found:
+
+- **Branch A was the largest at ~40%** — a credit-quality problem created by upstream
+  targeting choices, not by execution
+- **Branch C was small.** The recurring hypothesis that telesales was the bottleneck was
+  wrong. The team was fine; the leads were the issue.
+- Splitting the sample around a February 2026 targeting change that spiked motorcycle share
+  quantified the gap: **car leads produce GoLives at roughly 4x lower cost-per-GoLive than
+  motorcycle leads**
+
+Output was a **14-action plan** mapped to branches, each with a named owner, presented and
+adopted as the Q2 2026 execution plan.
+
+**Re-engagement followed directly from it.** May 2026 produced 2,062 cold leads and 58 MQLs
+— meaning ~2,000 already-paid-for conversations had died, mostly at the bot stage. Rather
+than re-running acquisition against the same people, I designed a three-layer filter: regex
+scan of chat history for rejection language, exclude motorcycles on cost-per-GoLive
+economics, exclude vehicles older than 2016 to match partner eligibility bands. **821 clean
+records survived — a 40% keep rate, at zero incremental ad spend** — handed to telesales as
+a warm queue. The filter became a reusable monthly module.
+
+## Results
+
+All figures below are the **direct marketing channel only**, roughly nine months from
+standing start. Field sales remains the larger contributor to Taktis GMV.
+
+**MQL output doubled in a single month: 58 (May 2026) <To /> 116 (June 2026)**, with no
+additional agent headcount — so cost per MQL roughly halved.
+
+**MQL conversion rate rose from 2.8% to 4.9%** on a *larger* lead base. Quality and
+quantity moved together, which is the uncommon outcome.
+
+**Cold lead volume grew 65% across Q2 2026** — 1,422 in April to 2,354 in June.
+
+**Ad spend fell 75% across Mar – May 2026** — Rp35M <To /> Rp17M <To /> Rp8.8M — without sacrificing
+lead quality, driven by monthly key-visual creative testing tied directly to CPL by vehicle
+segment.
+
+Volume up 65% while spend fell 75% means cost per lead improved several-fold over the
+quarter, driven by creative testing and vehicle-segment targeting rather than by loosening
+quality thresholds, since MQL rate rose over the same window.
+
+**First fully attributed GoLive** closed the loop from ad click to disbursed loan through
+the instrumented funnel in June 2026.
+
+**30+ GoLives since launch**, none of them carrying the commission a field-sourced deal
+would. Against
+monthly ad spend that had fallen to Rp8.8M by May 2026, the channel was
+contribution-positive inside its first year.
+
+Exact GMV, annual financing amounts, commission rates and margin structures are withheld.
+
+**And a shared language.** Funnel stages, sub-tags and drop-off ownership became the
+standard reporting vocabulary across Growth, Sales, Finance and Business — reviews now read
+branch sizes month over month instead of trading anecdotes.
+
+## My Role
+
+Senior Growth Manager, reporting to Head of Growth. Eight direct reports: Growth Analyst ·
+Product Manager · Finance Ops Associate · Telesales team (Supervisor + 2 agents) · Graphic
+Designer · Performance Marketing freelance.
+
+**Owned:** full-funnel growth strategy, paid acquisition, lead intelligence pipeline
+design, telesales function stand-up, the MECE diagnosis, weekly leadership reporting, and
+cross-team alignment on funnel definitions and metric ownership.
+
+**Partnered on:** leasing partner strategy, sales operations, unit economics and commission
+modelling with Finance, broadcast and re-engagement operations.
+
+## Learning
+
+> **Infrastructure pays back later than expected, and larger.**
+
+For roughly six months, the visible output of the pipeline work was charts leadership
+already directionally knew. It looked like overhead.
+
+The compounding value only arrived when I could ask *"of the 821 May bot-only drop-offs,
+how many had a car and a clean credit signal?"* and get an answer in seconds. At that point
+telesales prioritisation, re-engagement targeting and paid acquisition could all move on
+the same evidence instead of three separate opinions.
+
+The correction I'd make: build the application layer earlier. A CSV-and-notebook stack got
+us to insight, but it should have become a proper product six months sooner.
+
+**The second lesson is about why the channel existed at all.** Judged on volume against a
+two-year-old field operation, direct marketing looks small. Judged on contribution per
+transaction — no commission at all — it's a structurally better unit, and one the
+business fully owns. A new channel should be measured against the economics it changes, not
+only the volume it adds.
+
+**Instrument the funnel before optimising it. You cannot fix a drop-off you cannot name.**

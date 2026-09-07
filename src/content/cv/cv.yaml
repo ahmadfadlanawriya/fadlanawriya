@@ -1,0 +1,211 @@
+# Transcribed verbatim from Ahmad_Fadlan_Awriya_Senior_Growth_Manager_Resume_Final.pdf
+# This file is the SOLE AUTHORITY for employment dates, titles and history.
+# Where a case study disagrees with this file, this file wins.
+# `summary` lines are compressed from the CV's own language for the homepage's
+# compact density — they are the only derived text here and need approval.
+
+- id: main
+  roles:
+    - key: broom
+      company: Broom Indonesia
+      url: https://broom.id
+      title: Senior Growth Manager
+      start: Jul 2023
+      end: Present
+      location: Jakarta, Indonesia
+      context: >-
+        Technology platform serving Indonesia's used-car ecosystem through financing and
+        business solutions for consumers, agents, and SMB dealers. Reporting to the Head of
+        Growth and COO.
+      summary: >-
+        Leads a 12-person cross-functional growth team across two financing products;
+        scaled leasing channeling 6x and built the lifecycle model for a 25,000-member
+        agent ecosystem.
+      bullets:
+        - >-
+          Lead a 12-person cross-functional growth team comprising growth analysts,
+          engineers, QA, product, performance marketing, telesales, and
+          transaction-reconciliation support, plus external agency partners, across two
+          workflow-intensive financing products.
+        - >-
+          Scaled Broom Leasing Channeling 6x in transaction volume by activating 800+ SMB
+          dealers across Java, Kalimantan, and Sumatra through regional segmentation,
+          partner onboarding, sales enablement, and funnel redesign.
+        - >-
+          Designed the lifecycle operating model for a 25,000-member agent ecosystem,
+          covering segmentation, onboarding, activation, tier progression, incentive
+          mechanics, reactivation journeys, and regional performance playbooks.
+        - >-
+          Own CRM and lifecycle automation across HubSpot and Wati.io / WhatsApp Business
+          API, connecting lead capture, consent, nurture, database reactivation, telesales
+          routing, and lifecycle messaging across consumer, agent, and SMB dealer segments.
+        - >-
+          Run growth experiments across segmentation, messaging, acquisition sources, lead
+          qualification, and database-recycle journeys, using funnel and cohort analysis to
+          identify drop-offs and prioritize conversion opportunities.
+        - >-
+          Designed a rules-based Lead Matching System for telesales that recommends
+          probable leasing partners using submission region, vehicle attributes, and
+          customer employment, housing, and credit-status signals, improving
+          lead-to-partner routing quality.
+        - >-
+          Use SQL to analyze customer, transaction, leasing-partner, behavioral, and
+          campaign data across hundreds of thousands of data points, translating findings
+          into audience segments, CRM activation, product priorities, and go-to-market
+          allocation.
+        - >-
+          Defined marketing and activation event-tracking requirements, business KPIs, and
+          executive dashboards; partnered with Data and Engineering teams on implementation
+          while owning growth logic, interpretation, and decision-making.
+        - >-
+          Partnered with Product and Engineering to automate API-based workflows and
+          payment disbursement, reducing operational friction and supporting scalable
+          transaction processing across the financing journey.
+
+    - key: beeja
+      company: Beeja Indonesia
+      url: https://beeja.id
+      title: Founding Growth & Systems Lead, Part‑Time
+      start: Mar 2026
+      end: Present
+      location: Indonesia
+      context: >-
+        Early-stage refinancing aggregator connecting customers with multifinance partners
+        through a CRM-led telesales model. Five-person team.
+      summary: >-
+        Architected an end-to-end CRM operating system from zero, letting two
+        representatives work a ~10,000-customer database through automated qualification.
+      bullets:
+        - >-
+          Architected Beeja's end-to-end CRM operating system from zero, connecting a
+          ~10,000-customer database, WhatsApp Business API, automated qualification,
+          telesales handoff, application tracking, multifinance submission, dashboards, and
+          internal operations.
+        - >-
+          Built permission-aware outbound workflows reaching ~500 customer records per day,
+          capturing intent, follow-up timing, opt-outs, and call scheduling before routing
+          higher-intent leads to humans.
+        - >-
+          Designed a human-in-the-loop telesales model that enabled 2 representatives to
+          focus on ~20 qualified leads per day instead of broad cold calling, concentrating
+          human effort on consultative conversion.
+
+    - key: pashouses
+      company: Pashouses
+      url: https://pashouses.id
+      title: Product Growth Manager
+      start: Jul 2021
+      end: Jul 2023
+      location: Jakarta, Indonesia
+      context: >-
+        Data-driven home-ownership marketplace for buying, selling, and financing
+        residential property.
+      summary: >-
+        Piloted and scaled a staged show-unit merchandising model that lifted monthly
+        property visits from ~10-15 to ~70 and booking rate from ~5% to ~20%.
+      bullets:
+        - >-
+          Led omnichannel product growth and CRM for a high-trust, high-consideration
+          home-ownership marketplace, managing customer journeys, pipeline stages, and
+          service workflows through Salesforce and Zendesk.
+        - >-
+          Piloted and scaled a staged 'show-unit' merchandising model for acquired homes,
+          increasing monthly property visits from ~10-15 to ~70 and booking rate from ~5%
+          to ~20%; designed modular furniture layouts that could be sold with the home or
+          redeployed across similar inventory.
+        - >-
+          Launched referral and community-led growth programs to expand property supply and
+          create new transaction opportunities, partnering closely with commercial and
+          operations teams.
+        - >-
+          Led KPRPAS, a mortgage-transfer product, orchestrating multi-party customer
+          journeys across customers, banks, Product, Operations, and commercial teams.
+        - >-
+          Partnered with Product, Engineering, and banking partners to streamline approval,
+          payment, and document flows, turning operational bottlenecks into product and
+          growth requirements.
+
+    - key: bae
+      company: BAE
+      url: https://baeworld.id
+      title: Growth Advisor, Part‑Time
+      start: Jul 2023
+      end: Nov 2023
+      location: Jakarta, Indonesia
+      context: Curated experiences and activities marketplace.
+      summary: >-
+        Advised founders on growth strategy, unit economics and early go-to-market
+        experiments.
+      bullets:
+        - >-
+          Advised founders on growth strategy, unit economics, funnel performance, customer
+          segmentation, acquisition priorities, and early go-to-market experiments.
+        - >-
+          Built P&L analyses and identified practical growth levers across acquisition,
+          pricing, marketplace supply, and conversion.
+
+    - key: universitas-indonesia
+      company: Universitas Indonesia
+      title: Facilitator & Data Analyst
+      start: Jun 2020
+      end: Jul 2021
+      summary: >-
+        Built predictive analytics projects in Python, including a deep-learning image
+        classifier and a sentiment model.
+      bullets:
+        - >-
+          Built predictive analytics projects in Python, including a deep-learning image
+          classifier with 80% multi-class accuracy and a sentiment model across 2,680
+          records to predict behavioral outcomes.
+
+    - key: desa-emas
+      company: Desa Emas Indonesia
+      title: Product Manager
+      start: Dec 2019
+      end: Jun 2020
+      context: >-
+        Regional enterprise supporting village economic development, associated with
+        Indonesia's National Economic and Industry Committee ecosystem.
+      summary: >-
+        Led cross-functional product development across government, enterprise and
+        community stakeholders.
+      bullets:
+        - >-
+          Led cross-functional product development across government, enterprise, and
+          community stakeholders, using user research, market intelligence, and
+          partnership-led acquisition to guide product and growth decisions.
+
+  education:
+    - institution: Universitas Indonesia
+      credential: Bachelor of Architecture, Minor in Project Management
+      year: Aug 2019
+      detail: >-
+        Outstanding Student of Entrepreneurship, Department of Architecture, 2018;
+        Finalist, Engineering Student Creativity Program — Entrepreneurship, 2018.
+
+  certifications:
+    - IBM Data Science Professional Certificate
+    - Google Data Analytics
+    - Google Project Management
+    - Meta Digital Marketing Associate
+    - Semrush SEO Certification
+    - Glide Certification
+
+  tools:
+    - group: CRM & Automation
+      items: [HubSpot, Wati.io / WhatsApp Business API, Salesforce, Zendesk]
+    - group: Analytics & BI
+      items: [SQL, BigQuery, Looker Studio, Amplitude, Metabase, Tableau, Google Analytics]
+    - group: Growth Methods
+      items:
+        - Experimentation
+        - Cohort and funnel analysis
+        - Segmentation
+        - Lifecycle marketing
+        - Lead scoring
+        - Event tracking
+
+  languages:
+    - Bahasa Indonesia (Native)
+    - English (Fluent)
+    - Korean (Elementary)

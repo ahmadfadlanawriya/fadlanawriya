@@ -1,0 +1,198 @@
+---
+cvKey: broom
+employer: Broom Indonesia
+businessLine: Broom Leasing Channeling
+year: Nov 2023 – present
+role: Senior Growth Manager
+status: Current role
+headline: Building the Operating System Behind Rp975 Billion in Used-Car Financing
+dek: >-
+  Broom Leasing Channeling grew 6x in 16 months. I built the no-code system that
+  carried the volume — and the commercial lever that changed what each
+  transaction was worth.
+stack:
+  - Glide
+order: 1
+draft: false
+---
+
+## Context
+
+**Broom Indonesia** is an automotive financing technology company working to democratize
+finance in Indonesia's used-car market. **Broom Leasing Channeling (BLC)** is its
+credit-channeling business: connecting used-car dealers to multiple multifinance lenders
+through a single integrated submission and transaction process, so a dealer submits once
+instead of negotiating separately with each lender.
+
+I've owned BLC's growth systems since launch in November 2023.
+
+Where it started and where it got to:
+
+<DataTable
+  caption="Broom Leasing Channeling, launch to peak"
+  columns={["", "Nov 2023", "Mar 2025 peak"]}
+  numeric
+  rows={[
+    { cells: ["Monthly transactions", "73", "422"] },
+    { cells: ["Monthly GMV", "Rp 9B", "Rp 57B"] },
+  ]}
+/>
+
+Roughly **6x growth in 16 months**, with a cumulative **7,323 transactions and Rp975.2
+billion in GMV** across the period — an average ticket of about Rp133 million.
+
+## What I Owned
+
+Worth being precise, because credit-channeling growth is a shared outcome.
+
+**The commercial team generated the GMV.** Field sales acquired and worked the dealer
+network.
+
+**I built the system that carried it, and the lever that changed its value:**
+
+- The operating system every transaction ran through — built solo
+- The funnel model and dashboards that made dealer productivity visible
+- The margin-mix initiative that changed revenue per transaction
+
+## The Operating System
+
+Used-car credit channeling isn't a form. Each application crosses dealers, customers,
+commercial, operations, finance and multifinance partners, with documents, validations,
+statuses and handoffs at every step. Without a structured platform, the alternative was
+fragmented spreadsheets, manual follow-ups and no reliable view of where anything stood.
+
+A custom engineering build would have taken quarters we didn't have. So I translated the
+business process into **two applications on Glide**, and shipped both myself: a back office
+where operations, finance and partner submission run, and a mobile-optimised app for the
+field sales team working showrooms.
+
+What that required was business translation, not tooling:
+
+- **Surfaces** — a desk for the back office, a phone for the field
+- **Users** — who submits, reviews, approves, monitors
+- **Actions** — what each role must complete at each stage
+- **Data** — customer, vehicle, dealer, financing, transaction
+- **Statuses** — how an application moves from submission to disbursement
+- **Rules and validations** — what's required before anything advances
+- **Handoffs** — when ownership moves between sales, ops, finance and partners
+
+I built both, iterated on operational feedback, and maintained them as requirements changed.
+
+The split is by role, not by feature. A **field agent** submits from the showroom floor —
+showroom, loan and vehicle detail on one customer — and tracks their own numbers under
+Achievement; a manager signing into the same app can onboard new agents from it. **Back
+office** picks the ticket up from there and works it through to Siap Cair, opening customer,
+showroom and disbursement detail on any ticket, with its own performance under Chart.
+
+<Wallmap
+  layout="pocket"
+  source="Broom Leasing Channeling · Glide"
+  redaction="Customer and dealer names, plate numbers and email addresses are removed from the source files."
+  captures={[
+    {
+      src: "broom-blc-backoffice.redacted.png",
+      alt: "The BLC back office: a left navigation listing leads, escalation, disbursement and chart sections, and a table of new applications showing created date, plate number, status, and the submitting dealer.",
+      label: "Back office",
+      note: "Every ticket a field agent submits, worked through to Siap Cair.",
+    },
+    {
+      src: "broom-blc-field-app.redacted.png",
+      alt: "The BLC field agent app on a phone: tabs for created, PO Terbit and Siap Cair, a searchable list of the agent's own leads with vehicle photos and status, and a bottom bar reaching leads, CKD, CKB and achievement.",
+      label: "Field agent",
+      note: "Submitted from the showroom floor.",
+    },
+  ]}
+/>
+
+
+> **It carried 7,323 transactions and Rp975.2 billion in GMV.**
+
+The point isn't that no-code can scale. It's that translating an operating model accurately
+matters more than the tool — and that shipping in weeks let us validate the real workflow
+against real transactions before committing engineering investment.
+
+## Network Size vs. Dealer Productivity
+
+The stated growth hypothesis was that more dealer partners would produce more financing
+applications and more GMV. The network reached **~400 registered showrooms**.
+
+I refused to treat registration as the metric, and modelled the network as a funnel
+instead:
+
+<Pipeline
+  label="Dealer lifecycle"
+  stages={[
+    "Dealer acquisition",
+    "Onboarding",
+    "First submission",
+    "Approval",
+    "First transaction",
+    "Repeat transaction",
+  ]}
+/>
+
+Then built showroom-, branch- and funnel-level dashboards against it.
+
+What that surfaced:
+
+- Over 80% of registered showrooms transacted at least once — acquisition and onboarding
+  were working
+- **Only 20–40% transacted in any given month**
+- **Only 40–60 showrooms were consistently active**
+
+So the constraint was never acquisition. It was **repeat transaction**. A network of 400
+was, in practice, a core of 40–60 dealers doing the work.
+
+That reframes the growth problem entirely: expanding the network adds first transactions,
+but the compounding value sits in dealer retention and frequency. Separating "how big is
+the network" from "how much is it producing" is what made that visible.
+
+## Changing What Each Transaction Was Worth
+
+GMV growth was the commercial team's outcome. Gross revenue was a different lever, and it
+was available to me.
+
+Multifinance partners pay materially different margins per channelled transaction — from
+roughly **Rp500,000 to Rp5 million**. A **10x spread**, invisible in GMV, which treats
+every transaction as equivalent.
+
+Two moves:
+
+1. **An incentive program** built with the commercial team, structured to steer submission
+   mix toward higher-margin partners
+2. **A joint partnership proposal** with those partners, sharing customer risk profiling to
+   lift their acceptance rates — since steering volume only pays if the applications
+   actually get approved
+
+At 7,323 transactions, a Rp1 million shift in average revenue per transaction is worth
+roughly Rp7 billion. The mix, not the volume, was where that value sat.
+
+## My Role
+
+Senior Growth Manager, reporting into Head of Growth and Head of Sales, with direct
+coordination into Finance.
+
+Team — five direct reports:
+
+- **Growth Associate**, who led business operations across the entire commercial team
+- **Growth Analyst**
+- **3 Operational Admins**, processing applications through to finance disbursement
+
+Owning the ops admin function meant owning part of the transaction pipeline itself —
+application processing sat between dealer submission and disbursement, and it was mine.
+
+Working across Sales, Product, Operations, Finance and multifinance partners.
+
+## Learning
+
+> **Growth metrics and value metrics are not the same metric.**
+
+BLC's headline story was network expansion and GMV. Both were real. But the two things that
+actually shaped the business sat underneath them: **a 400-dealer network was really a 40–60
+dealer network**, and **a 10x margin spread meant transactions were not interchangeable**.
+
+Neither was visible until the funnel was modelled properly and the revenue mix was
+separated from the volume.
+
+**Build the system that makes the business legible. The leverage shows up once you can see
+it.**

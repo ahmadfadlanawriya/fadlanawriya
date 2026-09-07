@@ -1,0 +1,239 @@
+---
+cvKey: pashouses
+employer: Pashouses
+year: Jul 2021 – Jul 2023
+role: Product Growth Manager
+status: Completed
+headline: What If Every House Was a Show Unit?
+dek: >-
+  How I turned secondary-property inventory into staged show units — lifting
+  property visits 5x and booking conversion from 5% to 20%, on a staging budget
+  worth 1.5% of the asset.
+order: 5
+draft: false
+---
+
+## Context
+
+**Pashouses** was an early-stage Indonesian proptech, around 12 people at the time,
+operating an instant-buy model for secondary homes: acquire directly from sellers who
+valued speed and liquidity, then resell to end buyers. Average asset value was roughly IDR
+1 billion, with a target gross margin of 20% and realised margin typically landing at
+10–15% after buyer negotiation.
+
+The go-to-market flow was linear:
+
+<Pipeline
+  label="Original go-to-market flow"
+  stages={["Acquire", "List", "Advertise", "Property Visit", "Booking", "Sale"]}
+/>
+
+We published inventory on our own marketplace and pushed it through digital and social
+channels.
+
+One bottleneck sat in the middle of that funnel.
+
+## Problem
+
+> **People were seeing the houses. They just weren't visiting them.**
+
+Despite continuous promotion, property visits stayed flat at roughly **10–15 visits per
+unit per month**. Booking fees — real money, IDR 10–20 million depending on transaction
+size — came in at about **one per unit** across a property's entire time on market.
+
+More marketing would generate more impressions and more listing views. It wasn't going to
+solve the behaviour we actually needed: getting prospective buyers through the front door.
+
+For a purchase at this consideration level, the physical visit was the conversion point
+that mattered.
+
+## Question
+
+The instinctive reframe was *how do we advertise these houses harder?*
+
+I started somewhere else:
+
+> **Why would someone want to visit one of our houses in the first place?**
+
+Looking at the inventory, the experience was purely transactional. We acquired a secondary
+house, photographed it in its existing condition, published the listing, and expected
+buyers to imagine everything the house *could become*. Nothing in the funnel helped them
+make that leap.
+
+## Insight
+
+My background is in architecture, which led me to compare our model against how primary
+developers sell new homes.
+
+Developers routinely sell properties before the building physically exists. Buyers can
+still experience the product through a **show unit** — a designed, furnished environment
+demonstrating not just dimensions, but the life someone could have inside it.
+
+Secondary property had the opposite advantage. **The house was already there.** We were
+treating it as inventory rather than as an experience.
+
+> **Primary developers weren't selling square meters. They were selling an imaginable
+> future.**
+
+So rather than competing with new developments on price, what if every Pashouses property
+carried the same show-unit experience?
+
+## Getting to Yes
+
+Staging meant real capex — IDR 20–30 million per house, against dozens of houses, at a
+company of twelve. Cofounder approval was not going to come from a slide.
+
+So I tested demand before asking for budget.
+
+I ran **two ad variants**: one showing a house as-acquired, one showing a staged version.
+Then I went to the sharpest available audience — customers who had **already visited a
+property in its original condition and not converted** — and sent a WhatsApp campaign
+asking whether they'd return to see it renovated.
+
+**70% said yes. 20% didn't respond. 10% declined.**
+
+That group had already seen the house and passed. Their yes wasn't politeness; it was
+re-intent from people with revealed knowledge of the property. The budget was approved on
+that evidence.
+
+## Experiment
+
+To validate before scaling, I ran a controlled pilot in a single area using **four broadly
+comparable houses** matched on characteristics and location.
+
+**2 treatment properties** — renovated, styled and furnished as show units.
+**2 control properties** — left in existing condition, marketed through identical channels.
+
+Tracked across property visits, booking fees and sales progression.
+
+Within the first two weeks, staged properties drew **20+ visits and 2 booking fees**,
+against **3 combined visits** for the untreated pair. Over a month, visits to staged
+properties reached roughly 40 with multiple booking interests attached.
+
+> **The bottleneck wasn't awareness. It was desirability.**
+
+## Scale, and the Modular Model
+
+The pilot changed how we prepared inventory:
+
+<Pipeline
+  label="Revised inventory flow"
+  stages={["Acquire", "Improve", "Stage", "Merchandise", "List", "Visit", "Convert"]}
+/>
+
+But staging every house as a one-off decoration expense wouldn't survive contact with the
+P&L. So I designed the interiors around a **modular, plug-and-play system** — adaptable
+layouts and furniture selections that could be struck down and reinstalled in another
+property with similar dimensions.
+
+At the point of sale, buyers could take the house **with or without the furniture**. If
+they declined it, the set redeployed into the next unit rather than being written off.
+
+Staging stopped being a per-listing cost and became a **reusable merchandising asset**.
+
+<Wallmap
+  source="Pashouses · Show unit staging"
+  captures={[
+    {
+      src: "pashouses-as-acquired.jpg",
+      alt: "A room in an acquired house before staging: bare tiled floor, painted walls, a single dark table under a barred window, and no furnishing.",
+      label: "As acquired",
+      note: "Photographed and listed exactly as bought.",
+    },
+    {
+      src: "pashouses-staged.jpg",
+      alt: "A room in the same house after staging: a sofa with cushions, a round coffee table on a patterned rug, an upholstered bench, wooden cabinets, a lit lamp and curtains.",
+      label: "Staged as a show unit",
+      note: "Furniture specified to be struck down and reinstalled in the next house.",
+    },
+  ]}
+/>
+
+
+## Results
+
+<DataTable
+  caption="Per unit, before and after staging"
+  columns={["", "Before", "After"]}
+  numeric
+  rows={[
+    { cells: ["Property visits per unit, monthly", "10–15", "60–80"] },
+    { cells: ["Booking fees per unit, across time on market", "~1", "12–16"] },
+    { cells: ["Visit-to-booking conversion", "~5%", "~20%"], emphasis: true },
+  ]}
+/>
+
+Booking fees were IDR 10–20 million each — buyers were committing roughly the entire cost
+of staging the house, individually. This was not a soft-interest metric.
+
+Pashouses operated a **queue system**: multiple buyers could book the same property, and if
+the first in line secured bank approval, the sales team matched remaining queued buyers to
+comparable houses nearby. Approximately **50% of queued bookings converted to sales**, with
+the remainder falling out on bank credit criteria rather than on intent.
+
+The consequence: a single staged unit didn't sell one house. It generated **6–8 closed
+transactions** across the surrounding portfolio.
+
+## Unit Economics
+
+<DataTable
+  caption="Staging cost model"
+  numeric
+  rows={[
+    { cells: ["Initial staging per house", "IDR 20–30M (furniture 60–70%, repaint and minor works the rest)"] },
+    { cells: ["Redeploy cost", "IDR 8–12M — roughly 60% cheaper than first install"] },
+    { cells: ["Average furniture set lifespan", "~3 properties, until sold or broken"] },
+    { cells: ["Effective cost per staged house", "~IDR 15M — about 1.5% of asset value"], emphasis: true },
+  ]}
+/>
+
+Against a gross margin of IDR 100–150M per house, staging consumed roughly 10–15% of the
+margin on a *single* unit — while sourcing demand that closed 6–8 units.
+
+The reusability was what made it defensible at board level. A one-off IDR 25M decoration
+expense per property is a marketing line item. A furniture set amortised across three
+houses, with the option to sell it into the transaction, is an asset.
+
+## Where the Constraint Moved
+
+Half the queued bookings didn't close — and the reason wasn't desire. It was bank partner
+credit criteria.
+
+That's the correct outcome of fixing a real constraint: it moves. We had solved
+desirability at the top of the visit funnel, and the binding limit relocated downstream to
+financing eligibility. The next problem worth attacking wasn't more visits or more staging;
+it was buyer credit-readiness and the partner mix underwriting them.
+
+## My Role
+
+I owned this end-to-end — design, marketing, operations and unit economics, with budget
+approval from the cofounders.
+
+- Directed an **Ops Manager and Ops Associate** as direct reports
+- Acted as **on-site project manager** for the external renovation and furniture-install
+  crews
+- Led the **Graphic Designer and Performance Marketer** on listing and campaign output
+- Owned the **staging cost model**, the modular redeploy system, and the margin case
+  presented to the cofounders
+
+At a 12-person company, this meant designing the intervention, proving it, staffing it, and
+defending its economics.
+
+## Learning
+
+> **Not every growth problem needs more acquisition.**
+
+Low property visits looked like a marketing problem. The instinctive fix was more spend,
+more campaigns, more traffic into the listings.
+
+The constraint was deeper in the experience. Customers could find our houses. They just
+weren't excited enough to go see them.
+
+And the leverage wasn't only that desirability could be manufactured — it was that it
+**didn't have to be manufactured per unit**. One staged house created demand distributable
+across the entire nearby portfolio.
+
+The approach I've carried forward since:
+
+**Find the constraint. Understand the customer behaviour behind it. Build the smallest test
+that de-risks the spend. Measure. Scale what survives.**

@@ -1,0 +1,228 @@
+---
+cvKey: broom
+employer: Broom Indonesia
+businessLine: Taktis · Operating system
+clientUrl: https://taktis.co.id
+year: Jul 2024 – present
+role: Senior Growth Manager
+status: Current role
+headline: The MVP That Became the PRD
+dek: >-
+  How a two-week low-code build became the operating backbone for 25,000+ users,
+  61,000+ transactions, and multi-trillion-rupiah financing volume.
+stack:
+  - Glide
+  - JavaScript
+  - HTML
+  - Make.com
+  - Xendit
+order: 2
+draft: false
+---
+
+## Context
+
+Taktis Indonesia operates a financing aggregation model supported by a nationwide
+field-sales organization. When the business was preparing to scale, roughly **10,000
+field-sales users** needed a reliable way to submit customer financing applications onsite
+and have those applications processed by backoffice teams.
+
+The operational flow crossed field sales, operational admin, analysts and operations,
+finance, and transaction completion.
+
+The business could acquire customers. The problem was that the system required to process
+them had not yet caught up.
+
+## Before: A Fragmented Operating Flow
+
+<Pipeline
+  label="Before"
+  stages={["Google Forms", "Google Sheets", "WhatsApp", "Web banking"]}
+/>
+
+<Pipeline
+  label="After"
+  stages={["Field app", "Validation", "Operations", "Approval", "Finance", "Completion"]}
+/>
+
+Each tool in the first row solved one small part of the process, but there was no single operating layer
+connecting the journey. That created fragmented application data, manual status updates,
+unclear ownership between teams, limited visibility for field managers, inconsistent
+escalation and approval, manual communication between field and backoffice, payment and
+reconciliation friction, and no reliable single source of truth.
+
+The business did not need a new form. It needed a system capable of translating its
+field-sales organization, operating rules, approvals and financial workflows into one
+digital product.
+
+## The Challenge
+
+> **How do you turn a multi-layered offline sales organization into one digital operating
+> system — in two weeks?**
+
+A conventional product-development cycle could have required several sprints across
+product, design, engineering and QA. Taktis needed something production-ready much faster.
+
+The constraints were clear: one product owner and builder, one sprint, roughly 10,000
+initial field users, multiple backoffice teams, different permissions across the sales
+hierarchy, real financial transactions, and a live operation waiting for the product.
+
+The objective was not a disposable prototype. It was the **minimum operating system
+required to run the business safely and efficiently**.
+
+## Build the Workflow, Not the Software
+
+I started by mapping how the business actually worked. Instead of beginning with screens or
+features, I defined who creates information, who needs to see it, who is allowed to change
+it, which actions require approval, what happens when a case deviates from the standard
+process, what must be passed to the next team, and where money enters the workflow.
+
+The product was designed around the operating model rather than around individual features.
+
+The lifecycle that fell out of it runs from created, to documents submitted,
+administrative review, revision and validation, operational processing, approval or
+rejection, financial processing, payment and disbursement, to completed.
+
+That lifecycle became the backbone of both the field-sales application and the backoffice
+operation.
+
+## Translating the Sales Organization Into Product Logic
+
+Taktis has multiple layers of field-sales roles, each with different responsibilities and
+access rights.
+
+<DataTable
+  caption="Field sales hierarchy and authority"
+  columns={["Role", "Responsibility", "Visibility and authority"]}
+  rows={[
+    { cells: ["RSM — Regional Sales Manager", "Regional oversight and team management", "Views subordinate submissions, recruits managerial roles, approves deviation requests"] },
+    { cells: ["ASM — Area Sales Manager", "Area-level management", "Similar visibility to RSM, but cannot approve deviations"] },
+    { cells: ["BSM / BSA — Branch Sales Manager / Associate", "Branch execution and assisted submissions", "Submits on behalf of coordinators or agents, monitors relevant applications"] },
+    { cells: ["ACO / ACA — Area Coordinator Officer / Associate", "Agent coordination", "Submits on behalf of their agents, views relevant submissions"] },
+    { cells: ["Agent", "Customer acquisition", "Submits and monitors their own applications"] },
+  ]}
+/>
+
+The system needed to understand more than user identity: reporting hierarchy, role-based
+visibility, submission ownership, recruitment rights, approval authority, escalation paths
+and deviation handling.
+
+**Deviation approval is the clearest case.** Some transactions required exceptions to
+standard commercial rules. A Branch Sales Manager could request a deviation where the
+transaction economics allowed one, attach supporting evidence, and escalate it — and only
+the appropriate Regional Sales Manager could approve it. The system encoded financial
+governance and approval logic, not just lead submission.
+
+## The Build Strategy
+
+I chose a low-code architecture deliberately, because speed of learning was worth more than
+premature technical complexity. **Glide** carried the field-sales and internal application
+layer, **JavaScript** and **HTML** the custom logic and interface requirements,
+**Make.com** the workflow automation and orchestration, and **Xendit** the payment
+integration, alongside notifications and operational data movement.
+
+The goal was not to avoid engineering. It was to shorten the distance between a business
+requirement, a working product and real user feedback.
+
+I owned it end to end: discovery, process mapping, requirements, information architecture,
+workflow logic, build, automation, QA and deployment.
+
+## From Idea to Production in One Sprint
+
+The first production version shipped in **14 days**. Taktis moved from a fragmented
+combination of forms, spreadsheets, WhatsApp and web banking into a shared operating
+environment inside a single sprint.
+
+At launch it served roughly 10,000 field users. The backoffice operation ran on it too —
+four super admins, two analysts, six operational admins, four finance users, two business
+admins and three product and technology users. The product became the shared layer
+connecting the field organization with the teams responsible for validating, processing and
+completing transactions.
+
+## Shortening the Product Feedback Loop
+
+Shipping quickly was only the first advantage. Because I was both the product owner and the
+builder, feedback did not have to travel through a long chain before reaching
+implementation.
+
+<Pipeline
+  label="Conventional loop"
+  stages={["User", "Sales manager", "Product", "Design", "Engineering", "QA", "Release"]}
+/>
+
+<Pipeline
+  label="The Taktis loop"
+  stages={["User", "Validate pattern", "Prioritize", "Build", "Release"]}
+/>
+
+I did not implement every request automatically. Each was weighed against two questions: is
+this an isolated preference, or are multiple users hitting the same problem — and will
+solving it improve team performance, conversion, operational efficiency or volume?
+
+During the first three months, meaningful iterations shipped roughly every two weeks.
+Smaller improvements went out within hours or days.
+
+## Scale
+
+<DataTable
+  caption="From launch to August 2026"
+  numeric
+  rows={[
+    { cells: ["Time to production", "14 days"], emphasis: true },
+    { cells: ["Field users at launch", "~10,000"] },
+    { cells: ["Users, August 2026", "25,000+"], emphasis: true },
+    { cells: ["Transactions, first month", "~1,800"] },
+    { cells: ["Transactions, first three months", "~6,000"] },
+    { cells: ["Transactions, Jul 2024 – Aug 2026", "61,000+"] },
+    { cells: ["Financing volume supported", "Multi-trillion rupiah"] },
+  ]}
+/>
+
+Roughly 90% of users are field agents, supported by managerial, operational, finance and
+product roles.
+
+The outcome was not simply that the product launched quickly. It was that a system built in
+one sprint continued to support a growing national operation for more than two years.
+
+Exact GMV, annual financing amounts, commission rates and margin structures are withheld.
+
+## From MVP to Living PRD
+
+Eventually Taktis reached the point where a fully engineered native application became the
+right next step. But the native product team did not have to begin from hypothetical
+requirements.
+
+The low-code product had already captured years of real user journeys, real hierarchy and
+permission rules, real operational workflows, real approval logic, real edge cases, real
+field feedback and real transaction behaviour. It became both the benchmark and the living
+PRD for the native application.
+
+Instead of writing every requirement from scratch, Product and Engineering could observe an
+operating product that already demonstrated how the business worked. The technology would
+change; the product knowledge would carry forward.
+
+## My Role
+
+Product owner and initial builder. I led the first version from ideation through
+deployment: business-process mapping, user and role architecture, product requirements,
+workflow design, the build itself, automation, payment integration, QA, production
+deployment, field-user feedback, prioritization and ongoing iteration.
+
+As the product and the business matured, Product and Engineering teams took over the
+transition toward a native application.
+
+## Learning
+
+> **The best MVP isn't necessarily the one you throw away. It's the one that teaches you
+> exactly what deserves to be rebuilt.**
+
+The most valuable thing about the first Taktis product was not that it took two weeks to
+build. It was that more than two years later, the workflows encoded inside it still
+represented how the business operated.
+
+Low-code shortened the distance between user feedback and deployment while the business was
+still discovering its own operating model. When the time came to move to a native
+application, we were not replacing what the MVP taught us — we were encoding it.
+
+**Speed and scalability are not opposing goals. The question is what needs to be engineered
+immediately, and what first needs to be learned.**

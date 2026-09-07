@@ -1,0 +1,204 @@
+---
+cvKey: beeja
+employer: Beeja Indonesia
+year: Mar 2026 – present
+role: Founding Growth & Systems Lead
+status: Part-time, ongoing
+headline: How Do You Serve 10,000 Customers With Two Telesales?
+dek: >-
+  Building a refinancing aggregator's customer acquisition function from zero —
+  custom CRM, automated qualification, and IDR 2 billion disbursed in the first
+  40 working days.
+stack:
+  - Next.js 16 (App Router)
+  - TypeScript
+  - Tailwind v4
+  - Supabase
+  - Postgres 17
+order: 4
+draft: false
+---
+
+## Context
+
+**Beeja Indonesia** is a refinancing aggregator connecting borrowers to multifinance
+lending partners. It entered the market with a deliberately lean model: where traditional
+aggregators deploy hundreds or thousands of field agents to source customers, Beeja would
+operate through telesales.
+
+I was brought in to build the customer acquisition function from nothing. No CRM, no
+qualification flow, no reporting infrastructure, no operating process.
+
+The starting position:
+
+- A database of roughly **10,000 potential customers**, supplied by leasing partners and
+  replenished in fresh batches as each was worked through
+- A company of **five people**, of whom **two** were telesales
+
+> **Far more customers than the team could ever contact.**
+
+## The Constraint, and the Reframe
+
+At 100 customers per day and ~10 minutes each, working the database conversationally would
+require more than 16 hours of talk time daily — before callbacks, WhatsApp threads,
+document collection, partner submissions or reporting. And most of that effort would be
+spent before knowing whether a customer had any interest in refinancing at all.
+
+The obvious answer was to hire more telesales. For an early-stage company, that scales the
+inefficiency rather than solving it.
+
+So rather than asking *how can two telesales make more calls?*, I asked:
+
+> **How do we make sure telesales only ever call customers worth talking to?**
+
+The constraint wasn't call capacity. It was that **humans were positioned too early in the
+funnel.**
+
+Most of a refinancing conversation is repetitive screening — is there an active loan, is it
+mature enough, is there a real need for liquidity, is now the right time. None of that
+requires a salesperson. What requires a human is objection handling and helping someone
+commit to a financial decision.
+
+> **Automate repetition. Preserve humans for persuasion and judgment.**
+
+## What I Built
+
+I built Beeja a custom CRM as the single source of truth for the entire operation — not a
+sales pipeline bolted onto spreadsheets, but the company's operating layer. Written
+end-to-end with Claude Code in VS Code.
+
+The lifecycle it runs:
+
+<Pipeline
+  label="Customer lifecycle"
+  stages={[
+    "Database",
+    "Automated Outreach",
+    "Intent Capture",
+    "Automated Qualification",
+    "Qualified Lead",
+    "Human Telesales",
+    "Application",
+    "Multifinance Partner",
+    "Disbursement",
+  ]}
+/>
+
+**Automated top of funnel.** Permission-aware WhatsApp Business outreach at roughly **500
+customers per day**, with predefined intent responses — interested now, interested later,
+not interested. Opt-outs suppress immediately. At that volume, deliverability and
+quality-rating management is an operational requirement, not an afterthought.
+
+**Deliberately narrow qualification.** Only **3–5% of the database** reaches a human. The
+filter screens for loan maturity — refinancing isn't viable before roughly 50% of
+installments are paid — and for genuine liquidity need. This is the most important design
+decision in the system: the two variables that normally kill a refinancing deal are
+eliminated *before* a salesperson spends a minute.
+
+**Structured disqualification.** A cancel-reason taxonomy routes non-converting leads back
+into appropriate follow-up cycles, with certain reasons triggering permanent DND
+suppression. The list gets healthier over time rather than more exhausted.
+
+**Beyond acquisition.** Because five people can't afford tool sprawl, I extended the same
+system to application progress, partner submissions, sales reporting, performance
+dashboards, attendance and internal HR.
+
+<Wallmap
+  source="Beeja CRM · Admin dashboard"
+  captures={[
+    {
+      src: "beeja-dashboard.png",
+      alt: "The Beeja CRM admin dashboard: a left navigation grouping lead, follow-up and attendance beneath supervisor and admin sections, a clock-in panel showing hours worked today and this week, four summary counters including total leads and do-not-contact, and a list of follow-ups due in the next 24 hours.",
+    },
+  ]}
+  callouts={[
+    {
+      x: 13, y: 42,
+      label: "Telesales backbone",
+      note: "Distribution, reallocation, broadcast and daily targets — the queue two telesales actually work.",
+    },
+    {
+      x: 33, y: 45,
+      label: "CRM",
+      note: "10,692 records in one database. Only 3–5% of them ever reach a human.",
+    },
+    {
+      x: 82, y: 31,
+      label: "HRIS",
+      note: "Clock-in, attendance and internal HR run in the same system. Five people cannot afford tool sprawl.",
+    },
+  ]}
+/>
+
+> **Capture once. Automate where possible. Make it visible to everyone who needs it.**
+
+**Supply.** Leasing partners replenish the database in ~10,000-record batches. I paired
+that with independent top-of-funnel through SEM and social — including a website rebuild
+with analytics and search visibility activated — so acquisition wasn't wholly dependent on
+partner supply.
+
+
+## Results
+
+Soft launch June 2026, official launch July.
+
+<DataTable
+  caption="Commercial performance, first 40 working days"
+  numeric
+  rows={[
+    { cells: ["Disbursed, first 40 working days", "IDR 2 billion"], emphasis: true },
+    { cells: ["Average disbursement", "IDR 120 million"] },
+    { cells: ["Revenue per disbursement", "7–9%"] },
+    { cells: ["Customer acquisition cost", "1–2% of disbursement value"] },
+    { cells: ["Revenue-to-CAC ratio", "~4–9x"], emphasis: true },
+    { cells: ["Contribution margin", "~75–85%"] },
+  ]}
+/>
+
+The funnel, per ~10,000-record batch:
+
+- ~500 contacted per day, automated
+- **3–5% qualify** — the deliberate constraint
+- ~10 qualified leads reach telesales per day (peak 20)
+- Qualified to disbursed currently **~4–5%**, trailing
+
+That last figure understates steady state. Refinancing carries a document-collection and
+partner-approval lag, so leads qualified in recent weeks have not yet had time to close.
+
+The operating result is leverage rather than volume: two telesales sustainably working a
+10,000-record database, with automation absorbing everything up to the point where human
+judgment starts creating value.
+
+> More customers <To /> more people became
+> **more customers <To /> more automation <To /> humans only where necessary.**
+
+## My Role
+
+Growth consultant, engaged for six months, owning the customer acquisition function
+end-to-end.
+
+- **Designed the operating model** — funnel architecture, qualification criteria, lifecycle
+  states, cancel-reason taxonomy
+- **Built the CRM myself** — full stack, from schema to interface
+- **Built the automation layer** — WhatsApp Business integration, intent capture, permission
+  and suppression handling
+- **Owned top of funnel** — website rebuild, analytics activation, search visibility, SEM
+  and social acquisition
+- **Set the commercial model** — CAC targets, revenue per disbursement, partner submission
+  flow
+
+## Learning
+
+> **Automation isn't valuable because it removes people. It's valuable because it makes
+> human time worth more.**
+
+The apparent constraint was manpower — 10,000 customers, two telesales. Adding headcount
+would only have scaled an inefficient process.
+
+The better question was which parts of the customer journey actually deserve human
+attention. Screening for loan maturity doesn't. Convincing someone to refinance their
+vehicle does.
+
+The principle I've carried forward:
+
+**Don't automate the entire journey. Automate until human judgment becomes valuable.**
