@@ -1,0 +1,32 @@
+# build output
+dist/
+.astro/
+
+# dependencies
+node_modules/
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# environment variables
+.env
+.env.production
+
+# macOS
+.DS_Store
+
+# impeccable local state
+.impeccable/config.local.json
+
+# impeccable generated state (regenerable / machine-local)
+.impeccable/review/
+.impeccable/questions/
+
+# vendored design skill — reinstall with `npx impeccable install`
+.claude/skills/
+
+# internal product record — governs the work, not for publication
+PRODUCT.md
