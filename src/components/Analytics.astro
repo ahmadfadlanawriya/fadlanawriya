@@ -1,0 +1,58 @@
+---
+/**
+ * Google Tag Manager with Consent Mode v2.
+ *
+ * This is the only third-party JavaScript on the site, and the only reason the site
+ * is not zero-JS. It is gated twice: on PROD, so local development never pollutes the
+ * property, and on the container ID being present, so a clone without one ships nothing.
+ *
+ * Consent defaults to DENIED for every storage type. GTM still loads, which is the whole
+ * point of Consent Mode: a visitor who never answers still produces cookieless pings, so
+ * pageviews and referrers are counted without a single cookie or identifier. Only after
+ * an explicit yes does analytics_storage flip to granted.
+ *
+ * There is deliberately NO <noscript> iframe. The standard GTM snippet includes one, but
+ * it would fire the container for visitors who have no JavaScript — and therefore no way
+ * to consent. Without JS this site tracks nothing at all.
+ */
+const GTM_ID = import.meta.env.PUBLIC_GTM_ID;
+const enabled = Boolean(import.meta.env.PROD && GTM_ID);
+---
+{
+  enabled && (
+    <script is:inline define:vars={{ GTM_ID }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { window.dataLayer.push(arguments); }
+      window.gtag = gtag;
+
+      /* Defaults must be pushed before the container loads, or the first hit escapes them. */
+      gtag('consent', 'default', {
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        analytics_storage: 'denied',
+        wait_for_update: 500,
+      });
+
+      /* A previously granted choice is restored immediately, so a returning visitor
+         is not asked twice. localStorage throws in some privacy modes; a failure here
+         simply means consent stays denied, which is the safe direction. */
+      try {
+        if (localStorage.getItem('analytics-consent') === 'granted') {
+          gtag('consent', 'update', { analytics_storage: 'granted' });
+        }
+      } catch (e) {}
+
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, 'script', 'dataLayer', GTM_ID);
+    </script>
+  )
+}

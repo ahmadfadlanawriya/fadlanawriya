@@ -1,0 +1,129 @@
+---
+/**
+ * The consent banner, built in the world's own vocabulary rather than as a generic
+ * cookie bar. It takes the station plate — the system's single raised surface, already
+ * used by the metadata plate, the wall map and the footer — with the same 4px blue top
+ * rule. Zero radius, no shadow, no box.
+ *
+ * Rendered hidden and revealed by script, never the reverse: a visitor with no
+ * JavaScript never loads GTM, so there is nothing for them to consent to and no banner
+ * to dismiss. That also means no flash of a banner for someone who already answered.
+ *
+ * No entrance animation. The One Moment Rule allows the site exactly one authored
+ * motion idea and it belongs to the route ticks.
+ */
+const enabled = Boolean(import.meta.env.PROD && import.meta.env.PUBLIC_GTM_ID);
+---
+{
+  enabled && (
+    <>
+      <aside id="consent" class="consent" hidden aria-label="Analytics consent">
+        <div class="inner">
+          <p class="ask">
+            This site counts visits and which pages get read, using Google Analytics.
+            Nothing is stored on your device unless you allow it.
+          </p>
+          <div class="actions">
+            <button type="button" data-consent="granted" class="allow">Allow</button>
+            <button type="button" data-consent="denied" class="decline">Decline</button>
+          </div>
+        </div>
+      </aside>
+
+      <script is:inline>
+        (function () {
+          var el = document.getElementById('consent');
+          if (!el) return;
+          var stored = null;
+          try { stored = localStorage.getItem('analytics-consent'); } catch (e) {}
+          /* Unanswered is the only state that shows the banner. */
+          if (stored !== 'granted' && stored !== 'denied') el.hidden = false;
+
+          el.addEventListener('click', function (event) {
+            var button = event.target.closest('button[data-consent]');
+            if (!button) return;
+            var choice = button.dataset.consent;
+            try { localStorage.setItem('analytics-consent', choice); } catch (e) {}
+            if (choice === 'granted' && typeof window.gtag === 'function') {
+              window.gtag('consent', 'update', { analytics_storage: 'granted' });
+            }
+            el.hidden = true;
+          });
+        })();
+      </script>
+
+      <style>
+        .consent {
+          position: fixed;
+          inset-inline: 0;
+          inset-block-end: 0;
+          z-index: 20;
+          background: var(--color-sheet);
+          border-top: var(--route-stroke) solid var(--color-route);
+          padding-inline: var(--page-gutter);
+          padding-block: var(--spacing-lg);
+        }
+        .consent[hidden] { display: none; }
+
+        .inner {
+          max-width: var(--page-max);
+          margin-inline: auto;
+          display: flex;
+          flex-wrap: wrap;
+          align-items: baseline;
+          justify-content: space-between;
+          gap: var(--spacing-md) var(--spacing-xl);
+        }
+
+        .ask {
+          max-width: 56ch;
+          font-size: var(--font-size-meta);
+          line-height: var(--line-height-body);
+        }
+
+        .actions {
+          display: flex;
+          align-items: baseline;
+          gap: var(--spacing-lg);
+        }
+
+        /*
+         * A filled action block. Precedent exists: the skip link is already a filled
+         * block in interchange red with sheet-coloured text, so a filled control is in
+         * grammar. Square, like everything else here.
+         */
+        .allow {
+          background: var(--color-route);
+          color: var(--color-sheet);
+          border: 0;
+          border-radius: var(--radius-none);
+          padding: var(--spacing-sm) var(--spacing-lg);
+          font-family: inherit;
+          font-size: var(--font-size-small);
+          font-weight: 700;
+          letter-spacing: var(--tracking-sign);
+          text-transform: uppercase;
+          cursor: pointer;
+        }
+        .allow:hover { background: var(--color-ink); }
+
+        /* Declining is a plain link, not a competing block: the two choices are not
+           equally weighted actions, but they are equally easy to reach. */
+        .decline {
+          background: none;
+          border: 0;
+          padding: 0;
+          font-family: inherit;
+          font-size: var(--font-size-small);
+          font-weight: 700;
+          color: var(--color-ink);
+          text-decoration: underline;
+          text-decoration-thickness: 2px;
+          text-underline-offset: 0.22em;
+          cursor: pointer;
+        }
+        .decline:hover { color: var(--color-route); }
+      </style>
+    </>
+  )
+}

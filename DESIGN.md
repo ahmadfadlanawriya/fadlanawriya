@@ -160,6 +160,7 @@ The build is dense at the top of the page and generous underneath: the first vie
 - Zero corner radius anywhere except the 50% circle of a station tick
 - Flat by construction: no elevation shadows; the only raised plane is a pale sign plate
 - One authored motion moment, site-wide: approaching a stop fills it
+- The site's only third-party JavaScript is Google Tag Manager, loaded with Consent Mode v2 defaulting every storage type to denied. It is gated on a production build and a configured container ID, so a development build and a clone without one ship no script at all. There is deliberately no `<noscript>` GTM iframe: without JavaScript there is no way to consent, so without JavaScript nothing is tracked.
 
 ## Colors
 
@@ -369,6 +370,11 @@ most prominent element on a work index should not send a visitor off-site. Every
 carries `rel="noopener"` and opens in a new tab. A business line with its own site (Taktis)
 overrides the employer's on its own case study. **A URL is verified to resolve, and its
 content matched to the record, before it ships; an unverified employer gets no link at all.**
+
+### Consent Banner
+- **Character:** The station plate, laid across the foot of the page.
+
+Fixed to the bottom edge on `{colors.sheet}` under the 4px blue top rule — the same raised surface as the metadata plate, the wall map and the footer. Zero radius, no shadow, no box. **Allow** is a filled block in route blue with sheet-coloured text, the one filled control in the system; precedent is the skip link, already a filled block in interchange red. **Decline** is a plain underlined button in ink: the two choices carry different weight but are equally easy to reach. Rendered hidden and revealed by script, never the reverse, so a visitor who already answered never sees a flash and a visitor without JavaScript never sees it at all — they load no analytics, so they have nothing to consent to. No entrance animation: the One Moment Rule spends the site's single motion idea on the route ticks.
 
 ### Prose
 Descends from `.prose` at zero specificity via `:where()`, so MDX components style themselves without fighting inheritance. Unordered list markers are route dashes; blockquotes are pull-quotes bounded by 1px ink rules at lead size and 700 weight, with a blue vertical mark placed *out in the route rail* — outside the reading column, never a coloured bar inside the measure.

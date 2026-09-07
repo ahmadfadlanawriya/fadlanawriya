@@ -1,0 +1,59 @@
+name: Build and publish
+
+# Hostinger clones a branch; it does not run a build step. So the build happens
+# here and Hostinger only ever clones finished HTML from `deploy`.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: deploy
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      # npm ci respects the satteri 0.10.5 override (0.10.4 pins an arm64 binding
+      # that was never published) and pulls Linux sharp binaries for the image
+      # pipeline. sharp is a direct dependency here precisely so --no-optional or a
+      # platform switch cannot silently remove it.
+      - name: Install
+        run: npm ci
+
+      - name: Build
+        env:
+          PUBLIC_GTM_ID: ${{ vars.PUBLIC_GTM_ID }}
+        run: npm run build
+
+      # Fail loudly rather than publishing an empty site.
+      - name: Verify output
+        run: |
+          test -f dist/index.html || { echo "::error::dist/index.html missing"; exit 1; }
+          pages=$(find dist -name '*.html' | wc -l)
+          echo "Built $pages pages"
+          test "$pages" -ge 8 || { echo "::error::expected at least 8 pages, got $pages"; exit 1; }
+
+      # Hand-rolled rather than a third-party action: fewer moving parts, nothing
+      # extra to trust. An orphan history is force-pushed each build, so the deploy
+      # branch stays small and never needs merging.
+      - name: Publish to deploy branch
+        run: |
+          cd dist
+          git init -q -b deploy
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Build ${GITHUB_SHA:0:7}"
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" HEAD:deploy

@@ -49,7 +49,7 @@ mkdirSync('.impeccable/review', { recursive: true });
 const report = [];
 
 for (const job of jobs) {
-  const { url, width, height, mobile, out, full, scrollTo, measure } = job;
+  const { url, width, height, mobile, out, full, scrollTo, measure, evaluate } = job;
   await send('Emulation.setDeviceMetricsOverride', {
     width, height, deviceScaleFactor: mobile ? 2 : 1, mobile: !!mobile,
   });
@@ -82,6 +82,13 @@ for (const job of jobs) {
       returnByValue: true,
     });
     console.error('MEASURE ' + out + ': ' + m.result.value);
+  }
+
+  if (evaluate) {
+    const e = await send('Runtime.evaluate', {
+      expression: evaluate, returnByValue: true, awaitPromise: true,
+    });
+    console.error('EVAL ' + out + ': ' + JSON.stringify(e.result.value));
   }
 
   const { result } = await send('Runtime.evaluate', {

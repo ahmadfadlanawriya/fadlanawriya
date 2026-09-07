@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-08-31T01:57:47Z",
+  "generatedAt": "2026-09-07T05:58:23Z",
   "title": "Design System: Fadlan Awriya",
   "extensions": {
     "colorMeta": {
@@ -284,6 +284,12 @@
       "kind": "custom",
       "refersTo": "nav-link",
       "description": "An employer's own site linked as its bare domain at sign size and weight in route blue, beneath the title and dates in the homepage zone label, in the /cv record, and as a Site row on the case-study plate. No external-link icon: the domain is its own indicator. Not uppercased despite sitting among sign lettering. Never the employer heading itself. rel=noopener, new tab. A business line with its own site overrides the employer's on its own case study. URLs are verified to resolve and matched to the record before shipping."
+    },
+    {
+      "name": "Consent Banner",
+      "kind": "custom",
+      "refersTo": "wallmap-plate",
+      "description": "The station plate laid across the foot of the page: fixed bottom, sheet ground, 4px blue top rule, zero radius, no shadow. Allow is a filled route-blue block with sheet text, the system's one filled control, following the skip link's precedent. Decline is a plain underlined button in ink. Rendered hidden and revealed by script so a returning visitor sees no flash and a no-JavaScript visitor never sees it, having loaded no analytics to consent to. No entrance animation."
     }
   ],
   "narrative": {
