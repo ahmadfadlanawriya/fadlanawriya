@@ -1,0 +1,424 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-31T01:57:47Z",
+  "title": "Design System: Fadlan Awriya",
+  "extensions": {
+    "colorMeta": {
+      "ground": {
+        "role": "neutral",
+        "displayName": "Enamel Grey",
+        "canonical": "#e8ebee",
+        "tonalRamp": [
+          "oklch(15% 0.005 240)",
+          "oklch(26% 0.005 240)",
+          "oklch(37% 0.005 240)",
+          "oklch(48% 0.005 240)",
+          "oklch(60% 0.005 240)",
+          "oklch(72% 0.005 240)",
+          "oklch(84% 0.005 240)",
+          "oklch(95% 0.005 240)"
+        ]
+      },
+      "sheet": {
+        "role": "neutral",
+        "displayName": "Station Fill",
+        "canonical": "#f7f9fa",
+        "tonalRamp": [
+          "oklch(15% 0.003 230)",
+          "oklch(26% 0.003 230)",
+          "oklch(37% 0.003 230)",
+          "oklch(48% 0.003 230)",
+          "oklch(60% 0.003 230)",
+          "oklch(72% 0.003 230)",
+          "oklch(84% 0.003 230)",
+          "oklch(95% 0.003 230)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Near-Black Ink",
+        "canonical": "#10141a",
+        "tonalRamp": [
+          "oklch(15% 0.012 260)",
+          "oklch(26% 0.012 260)",
+          "oklch(37% 0.012 260)",
+          "oklch(48% 0.012 260)",
+          "oklch(60% 0.012 260)",
+          "oklch(72% 0.012 260)",
+          "oklch(84% 0.012 260)",
+          "oklch(95% 0.012 260)"
+        ]
+      },
+      "route": {
+        "role": "primary",
+        "displayName": "Signal Blue",
+        "canonical": "#0b4fb0",
+        "tonalRamp": [
+          "oklch(15% 0.09 262)",
+          "oklch(26% 0.13 262)",
+          "oklch(37% 0.16 262)",
+          "oklch(48% 0.17 262)",
+          "oklch(60% 0.15 262)",
+          "oklch(72% 0.11 262)",
+          "oklch(84% 0.07 262)",
+          "oklch(95% 0.03 262)"
+        ]
+      },
+      "interchange": {
+        "role": "secondary",
+        "displayName": "Interchange Red",
+        "canonical": "#c3341d",
+        "tonalRamp": [
+          "oklch(15% 0.07 32)",
+          "oklch(26% 0.11 32)",
+          "oklch(37% 0.15 32)",
+          "oklch(48% 0.18 32)",
+          "oklch(60% 0.17 32)",
+          "oklch(72% 0.13 32)",
+          "oklch(84% 0.08 32)",
+          "oklch(95% 0.03 32)"
+        ]
+      },
+      "ink-quiet": {
+        "role": "neutral",
+        "displayName": "Quiet Ink",
+        "canonical": "color-mix(in srgb, #10141a 68%, #e8ebee)",
+        "tonalRamp": [
+          "oklch(15% 0.008 250)",
+          "oklch(26% 0.008 250)",
+          "oklch(37% 0.008 250)",
+          "oklch(48% 0.008 250)",
+          "oklch(60% 0.008 250)",
+          "oklch(72% 0.008 250)",
+          "oklch(84% 0.008 250)",
+          "oklch(95% 0.008 250)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "The page's title \u2014 the line's name. One per page, capped at 18-24ch."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Station names; inside a case study these h2s also carry the route tick."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Employer names, CV record headings, work-card headlines."
+      },
+      "station": {
+        "displayName": "Station",
+        "purpose": "h4 and zone headings \u2014 naming a stop within a zone."
+      },
+      "lead": {
+        "displayName": "Lead",
+        "purpose": "Dek under a display title, pull-quotes, the footer ask. 40-48ch."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "All prose, held to a 68ch measure."
+      },
+      "meta": {
+        "displayName": "Meta",
+        "purpose": "Record values, tags, line-index stop names, table cells."
+      },
+      "small": {
+        "displayName": "Nav Label",
+        "purpose": "Masthead nav links and pipeline stage labels \u2014 tracked uppercase."
+      },
+      "label": {
+        "displayName": "Sign",
+        "purpose": "The .sign class: captions, field labels, dates, column headers. Short labels only, never body text."
+      }
+    },
+    "shadows": [
+      {
+        "name": "tick-halo",
+        "value": "0 0 0 3px var(--color-route-quiet)",
+        "purpose": "The only box-shadow in the system. A state ring on a hovered or focused station tick \u2014 feedback, not elevation. On an interchange tick the ring is drawn in --color-ground instead, so the red stays clean."
+      }
+    ],
+    "motion": [
+      {
+        "name": "duration-quick",
+        "value": "120ms",
+        "purpose": "Tick fill on hover/focus \u2014 the site's one authored moment."
+      },
+      {
+        "name": "duration-move",
+        "value": "320ms",
+        "purpose": "The tick halo expanding behind the fill."
+      },
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.22, 1, 0.36, 1)",
+        "purpose": "The only easing in the system. Exponential ease-out from an already-visible default; nothing hidden at rest, nothing animating on load."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "stack",
+        "value": "40rem"
+      },
+      {
+        "name": "zone",
+        "value": "64rem"
+      }
+    ],
+    "structure": [
+      {
+        "name": "route-stroke",
+        "value": "4px (3px below 40rem)",
+        "purpose": "The route: the stroke itself, section-opening rules, table header rules, the top edge of a raised plate, the focus outline."
+      },
+      {
+        "name": "route-rail",
+        "value": "2.5rem (0.75rem below 40rem)",
+        "purpose": "Distance from the page edge to the route line."
+      },
+      {
+        "name": "tick-size",
+        "value": "0.875rem (0.75rem below 40rem); interchange ticks 1.3x",
+        "purpose": "The station stop drawn as an open ring."
+      },
+      {
+        "name": "measure",
+        "value": "68ch",
+        "purpose": "Prose column width."
+      },
+      {
+        "name": "page-max",
+        "value": "74rem; 58rem for a case-study article",
+        "purpose": "Page frame."
+      },
+      {
+        "name": "page-gutter",
+        "value": "clamp(1.25rem, 0.7rem + 2.6vw, 3.5rem)",
+        "purpose": "Fluid page inset."
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Route with Stations",
+      "kind": "custom",
+      "refersTo": "station-tick",
+      "description": "The signature device: one continuous stroke down the page with a tick at every station, an enlarged red tick at an interchange, and a terminus bar where the line ends.",
+      "html": "<div class=\"ds-route ds-route-terminates\"><section class=\"ds-station\"><h2>Selected work</h2><p>Four constraints, four systems built to remove them.</p></section><section class=\"ds-station ds-interchange\"><h2>The constraint</h2><p>Where the line changes direction.</p></section></div>",
+      "css": ".ds-route { position: relative; padding-left: calc(2.5rem + 1.5rem); font-family: var(--font-sans, Overpass, Arial, sans-serif); color: var(--color-ink, #10141a); } .ds-route::before { content: ''; position: absolute; left: 2.5rem; top: 0.6em; bottom: 0; width: 4px; transform: translateX(-50%); background: var(--color-route, #0b4fb0); } .ds-route-terminates::after { content: ''; position: absolute; left: 2.5rem; bottom: 0; width: 1.4rem; height: 4px; transform: translateX(-50%); background: var(--color-route, #0b4fb0); } .ds-station { position: relative; padding-block-start: 4rem; } .ds-station:first-child { padding-block-start: 0; } .ds-station::before { content: ''; position: absolute; left: -1.5rem; top: calc(4rem + 0.42em); width: 0.875rem; height: 0.875rem; border-radius: 50%; background: var(--color-ground, #e8ebee); border: 4px solid var(--color-route, #0b4fb0); transform: translate(-50%, -50%); } .ds-station:first-child::before { top: 0.42em; } .ds-interchange::before { border-color: var(--color-interchange, #c3341d); background: var(--color-sheet, #f7f9fa); width: 1.1375rem; height: 1.1375rem; } .ds-station h2 { font-size: 1.75rem; font-weight: 700; line-height: 1.08; letter-spacing: -0.02em; margin: 0 0 1rem; } .ds-station p { max-width: 46ch; margin: 0; line-height: 1.6; }"
+    },
+    {
+      "name": "Line Index",
+      "kind": "nav",
+      "refersTo": "station-tick",
+      "description": "The strip map: the whole career as one line, four stations, terminating in contact. The first viewport's thesis and its primary action.",
+      "html": "<nav class=\"ds-line-index\" aria-label=\"Case studies\"><p class=\"ds-sign\" id=\"ds-li-label\">This line calls at</p><ol aria-labelledby=\"ds-li-label\"><li class=\"ds-tick-target\"><a href=\"#\"><span class=\"ds-stop\">Leasing Channeling</span><span class=\"ds-when ds-sign\">2023</span></a></li><li class=\"ds-tick-target\"><a href=\"#\"><span class=\"ds-stop\">Taktis</span><span class=\"ds-when ds-sign\">2024</span></a></li><li class=\"ds-terminus ds-tick-target\"><a href=\"#\"><span class=\"ds-stop\">Write to me</span><span class=\"ds-when ds-sign\">Terminus</span></a></li></ol></nav>",
+      "css": ".ds-line-index { font-family: var(--font-sans, Overpass, Arial, sans-serif); } .ds-line-index ol { display: flex; flex-wrap: wrap; gap: 1.5rem 0; padding: 0; margin: 1rem 0 0; list-style: none; } .ds-line-index li { flex: 1 1 9rem; position: relative; border-top: 4px solid var(--color-route, #0b4fb0); padding-block-start: 1rem; padding-inline-end: 1rem; } .ds-line-index li::before { content: ''; position: absolute; inset-block-start: 0; inset-inline-start: 0; width: 0.875rem; height: 0.875rem; border-radius: 50%; background: var(--color-ground, #e8ebee); border: 4px solid var(--color-route, #0b4fb0); transform: translate(-25%, -50%); transition: background 120ms cubic-bezier(0.22,1,0.36,1), box-shadow 320ms cubic-bezier(0.22,1,0.36,1); } .ds-line-index li:hover::before, .ds-line-index li:focus-within::before { background: var(--color-route, #0b4fb0); box-shadow: 0 0 0 3px var(--color-route-quiet, #cfdbee); } .ds-terminus { border-top-color: var(--color-interchange, #c3341d); } .ds-terminus::before { border-color: var(--color-interchange, #c3341d); background: var(--color-sheet, #f7f9fa); } .ds-terminus:hover::before, .ds-terminus:focus-within::before { background: var(--color-interchange, #c3341d); box-shadow: 0 0 0 3px var(--color-ground, #e8ebee); } .ds-line-index a { text-decoration: none; color: var(--color-ink, #10141a); display: block; } .ds-line-index a:hover .ds-stop, .ds-line-index a:focus-visible .ds-stop { color: var(--color-route, #0b4fb0); text-decoration: underline; text-decoration-thickness: 2px; } .ds-terminus a:hover .ds-stop, .ds-terminus a:focus-visible .ds-stop { color: var(--color-interchange, #c3341d); } .ds-stop { display: block; font-size: 0.9375rem; font-weight: 700; line-height: 1.28; } .ds-when { display: block; margin-block-start: 0.25rem; } .ds-sign { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-ink-quiet, #4b5057); margin: 0; hyphens: none; }"
+    },
+    {
+      "name": "Pipeline",
+      "kind": "custom",
+      "refersTo": "station-tick",
+      "description": "A process or funnel drawn in the world's grammar: a real ordered list, each stage a blue top rule with a tick, ending in a red terminus mark.",
+      "html": "<figure class=\"ds-pipeline\"><figcaption class=\"ds-sign\">Qualification funnel</figcaption><ol><li><span>Inbound lead</span></li><li><span>WhatsApp qualification</span></li><li><span>MQL scoring</span></li><li><span>Go live</span></li></ol></figure>",
+      "css": ".ds-pipeline { margin: 2.5rem 0; font-family: var(--font-sans, Overpass, Arial, sans-serif); } .ds-pipeline figcaption { margin-block-end: 1rem; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-ink-quiet, #4b5057); } .ds-pipeline ol { display: flex; flex-wrap: wrap; gap: 1.5rem 0; padding: 0; margin: 0; list-style: none; } .ds-pipeline li { flex: 1 1 7.5rem; position: relative; border-top: 4px solid var(--color-route, #0b4fb0); padding-block-start: 1rem; padding-inline-end: 1rem; } .ds-pipeline li::before { content: ''; position: absolute; inset-block-start: 0; inset-inline-start: 0; width: 0.875rem; height: 0.875rem; border-radius: 50%; background: var(--color-ground, #e8ebee); border: 4px solid var(--color-route, #0b4fb0); transform: translate(-25%, -50%); } .ds-pipeline li:last-child { flex-grow: 0; padding-inline-end: 0; min-width: 7.5rem; } .ds-pipeline li:last-child::after { content: ''; position: absolute; inset-block-start: 0; inset-inline-end: 0; width: 4px; height: 1.225rem; background: var(--color-interchange, #c3341d); transform: translateY(-40%); } .ds-pipeline li span { display: block; font-size: 0.8125rem; font-weight: 700; line-height: 1.28; color: var(--color-ink, #10141a); }"
+    },
+    {
+      "name": "Data Table",
+      "kind": "card",
+      "refersTo": "meta-plate",
+      "description": "A timetable: no fills, no zebra, no cell borders. Header in sign lettering over a blue route rule; the live row carried by weight and an ink underline, never by colour.",
+      "html": "<table class=\"ds-table ds-table-numeric\"><caption class=\"ds-sign\">Cumulative GMV</caption><thead><tr><td>Period</td><th scope=\"col\">Transactions</th><th scope=\"col\">GMV</th></tr></thead><tbody><tr><th scope=\"row\">2023</th><td>1,204</td><td>Rp 148.0B</td></tr><tr class=\"ds-emphasis\"><th scope=\"row\">2025</th><td>7,323</td><td>Rp 975.2B</td></tr></tbody></table>",
+      "css": ".ds-table { width: 100%; border-collapse: collapse; margin: 2.5rem 0; font-size: 0.9375rem; font-family: var(--font-sans, Overpass, Arial, sans-serif); color: var(--color-ink, #10141a); } .ds-table caption { text-align: left; margin-block-end: 1rem; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-ink-quiet, #4b5057); } .ds-table thead th, .ds-table thead td { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-ink-quiet, #4b5057); text-align: left; padding: 0 1rem 0.5rem 0; border-bottom: 4px solid var(--color-route, #0b4fb0); } .ds-table thead th:not(:first-child) { text-align: right; } .ds-table tbody th, .ds-table tbody td { text-align: left; padding: 0.75rem 1rem 0.75rem 0; border-bottom: 1px solid color-mix(in srgb, #10141a 18%, transparent); vertical-align: baseline; } .ds-table tbody th { font-weight: 400; padding-inline-end: 1.5rem; } .ds-table-numeric tbody td { text-align: right; font-weight: 700; font-variant-numeric: tabular-nums; } .ds-table tbody td:last-child { padding-inline-end: 0; } .ds-emphasis th, .ds-emphasis td { border-bottom-color: var(--color-ink, #10141a); border-bottom-width: 2px; font-weight: 700; }"
+    },
+    {
+      "name": "Work Card",
+      "kind": "card",
+      "refersTo": "work-card",
+      "description": "A record in a list, not a tile: no background, no border box, no shadow \u2014 a heading link, a quiet dek, sign-lettered meta and a hairline.",
+      "html": "<article class=\"ds-work-card\"><h3><a href=\"#\">A no-code operating system carrying Rp975B</a></h3><p class=\"ds-dek\">Shipped solo in Glide, then handed to eight operators without a rebuild.</p><p class=\"ds-meta ds-sign\"><span>Leasing Channeling</span><span>2023</span></p></article>",
+      "css": ".ds-work-card { padding-block: 1.5rem; border-bottom: 1px solid color-mix(in srgb, #10141a 18%, transparent); font-family: var(--font-sans, Overpass, Arial, sans-serif); } .ds-work-card h3 { font-size: 1.375rem; font-weight: 700; line-height: 1.08; letter-spacing: -0.02em; margin: 0; } .ds-work-card a { color: var(--color-ink, #10141a); text-decoration: none; display: inline-block; } .ds-work-card a:hover, .ds-work-card a:focus-visible { color: var(--color-route, #0b4fb0); text-decoration: underline; text-decoration-thickness: 4px; } .ds-dek { margin: 0.75rem 0 0; max-width: 54ch; line-height: 1.6; color: var(--color-ink-quiet, #4b5057); } .ds-meta { margin: 0.75rem 0 0; display: flex; flex-wrap: wrap; gap: 1rem; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-ink-quiet, #4b5057); }"
+    },
+    {
+      "name": "Masthead Navigation",
+      "kind": "nav",
+      "refersTo": "nav-link",
+      "description": "A station name-plate strip. The current page is marked in interchange red through aria-current, so the state is announced as well as drawn.",
+      "html": "<header class=\"ds-masthead\"><div class=\"ds-inner\"><a class=\"ds-wordmark\" href=\"#\">Fadlan Awriya</a><nav aria-label=\"Primary\"><a href=\"#\" aria-current=\"page\">Work</a><a href=\"#\">CV</a></nav></div></header>",
+      "css": ".ds-masthead { border-bottom: 1px solid color-mix(in srgb, #10141a 18%, transparent); padding-block: 1rem; font-family: var(--font-sans, Overpass, Arial, sans-serif); } .ds-masthead .ds-inner { display: flex; flex-wrap: wrap; gap: 1rem 2.5rem; align-items: baseline; justify-content: space-between; } .ds-wordmark { font-size: 0.9375rem; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-ink, #10141a); text-decoration: none; } .ds-wordmark:hover, .ds-wordmark:focus-visible { color: var(--color-route, #0b4fb0); } .ds-masthead nav { display: flex; gap: 1.5rem; } .ds-masthead nav a { font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-ink-quiet, #4b5057); text-decoration: none; padding-block-end: 0.25rem; border-bottom: 4px solid transparent; } .ds-masthead nav a:hover, .ds-masthead nav a:focus-visible { color: var(--color-ink, #10141a); border-bottom-color: var(--color-route, #0b4fb0); } .ds-masthead nav a[aria-current='page'] { color: var(--color-ink, #10141a); border-bottom-color: var(--color-interchange, #c3341d); }"
+    },
+    {
+      "name": "Case Study Metadata Plate",
+      "kind": "card",
+      "refersTo": "meta-plate",
+      "description": "The only raised surface in the system: station fill with a 4px blue top rule, sitting below the headline and never as a label above it.",
+      "html": "<dl class=\"ds-meta-plate\"><div><dt class=\"ds-sign\">Client</dt><dd>Broom Indonesia \u00b7 Taktis</dd></div><div><dt class=\"ds-sign\">Role</dt><dd>Senior Growth Manager</dd></div><div><dt class=\"ds-sign\">Period</dt><dd>2024\u2013present</dd></div><div><dt class=\"ds-sign\">Status</dt><dd>Ongoing</dd></div></dl>",
+      "css": ".ds-meta-plate { display: grid; grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr)); gap: 1.5rem; background: var(--color-sheet, #f7f9fa); border-top: 4px solid var(--color-route, #0b4fb0); padding: 1.5rem; margin: 0; font-family: var(--font-sans, Overpass, Arial, sans-serif); } .ds-meta-plate > div { display: grid; gap: 0.25rem; align-content: start; } .ds-meta-plate dt { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-ink-quiet, #4b5057); hyphens: none; } .ds-meta-plate dd { margin: 0; font-size: 0.9375rem; font-weight: 700; line-height: 1.28; color: var(--color-ink, #10141a); }"
+    },
+    {
+      "name": "Contact Actions",
+      "kind": "button",
+      "refersTo": "pending-marker",
+      "description": "The three confirmed contact routes as text links with a blue underline. A value that has not been supplied renders as a visible red dashed pending marker, never a plausible fake.",
+      "html": "<ul class=\"ds-contact\"><li><a href=\"mailto:name@example.com\">name@example.com</a></li><li><a href=\"#\">LinkedIn</a></li><li><span class=\"ds-pending\">CV download \u2014 pending</span></li></ul>",
+      "css": ".ds-contact { display: flex; flex-wrap: wrap; gap: 1rem 4rem; list-style: none; padding: 0; margin: 0; font-family: var(--font-sans, Overpass, Arial, sans-serif); } .ds-contact li { font-size: 1.25rem; font-weight: 700; min-width: 0; } .ds-contact a { color: var(--color-ink, #10141a); text-decoration-color: var(--color-route, #0b4fb0); text-decoration-thickness: 2px; text-underline-offset: 0.22em; } .ds-contact a[href^='mailto:'] { font-size: clamp(0.9375rem, 3.6vw, 1.25rem); overflow-wrap: anywhere; } .ds-contact a:hover, .ds-contact a:focus-visible { color: var(--color-route, #0b4fb0); } .ds-pending { font-size: 0.9375rem; font-weight: 700; color: var(--color-interchange, #c3341d); border-bottom: 2px dashed var(--color-interchange, #c3341d); padding-block-end: 0.25rem; }"
+    },
+    {
+      "name": "Pull-Quote",
+      "kind": "custom",
+      "refersTo": "work-card",
+      "description": "Emphasis made with scale, weight and ink rules. The coloured mark that says 'this is a turn' sits out in the route rail, never as a bar inside the reading column.",
+      "html": "<div class=\"ds-quote-rail\"><blockquote class=\"ds-quote\"><p>The channel was not underperforming. It was being measured at the wrong stage.</p></blockquote></div>",
+      "css": ".ds-quote-rail { position: relative; padding-left: 2.5rem; font-family: var(--font-sans, Overpass, Arial, sans-serif); } .ds-quote { position: relative; margin: 2.5rem 0; padding-block: 1rem; border-block: 1px solid color-mix(in srgb, #10141a 38%, transparent); font-size: 1.25rem; line-height: 1.28; font-weight: 700; max-width: 66ch; color: var(--color-ink, #10141a); } .ds-quote::before { content: ''; position: absolute; left: -1.5rem; top: 1rem; width: 4px; height: calc(100% - 2rem); background: var(--color-route, #0b4fb0); transform: translateX(-50%); } .ds-quote p { margin: 0; max-width: none; }"
+    },
+    {
+      "name": "Wall Map",
+      "kind": "custom",
+      "refersTo": "wallmap-plate",
+      "description": "A capture of a real system quoted onto the station plate and keyed like a station wall map: a sign-lettered source line, the capture mounted flush between two hairlines with numbered marks positioned by percentage, a numbered key carrying the argument, and a redaction note when the file was altered. The mark is the station tick at twice its size with a plain text digit \u2014 never a circled-numeral glyph, which falls outside the loaded latin subset. Not interactive, so it never takes the motion moment. Spans the route's field, not the 68ch measure. Two captures may be paired for a before/after, each with its own sign label, and a pair refuses callouts. Below 40rem the marks are dropped and the key restacks to one column. A pair takes two arrangements: compare (equal columns, a matched before/after) and pocket (a wall map beside the hand-sized version of it, unequal columns, the handset at clamp(6.5rem, 19%, 10.5rem)). Frames and labels share one grid so frames bottom-align and labels start on a common line. Each column gets its own derivative ladder. Stacked below 40rem the handset is capped at 14rem and centred, never stretched."
+    },
+    {
+      "name": "Employer Link",
+      "kind": "custom",
+      "refersTo": "nav-link",
+      "description": "An employer's own site linked as its bare domain at sign size and weight in route blue, beneath the title and dates in the homepage zone label, in the /cv record, and as a Site row on the case-study plate. No external-link icon: the domain is its own indicator. Not uppercased despite sitting among sign lettering. Never the employer heading itself. rel=noopener, new tab. A business line with its own site overrides the employer's on its own case study. URLs are verified to resolve and matched to the record before shipping."
+    }
+  ],
+  "narrative": {
+    "northStar": "The Line Diagram",
+    "overview": "This is a transit map drawn as a website. A career is a route; each case study is a station on it; each constraint the owner removed is the interchange where the line changes direction; contact is the terminus. The world is printed rather than lit \u2014 a cool enamel-grey sheet in daylight, near-black ink, and exactly two signal colours used the way a wayfinding system uses them: one blue for the route itself, one red for the junction. Nothing here glows, floats, or gradients. It reads like an enamel sign in a station, because the visitor is a recruiter on a phone, mid-evaluation, with a CV open in another tab.\n\nThe discipline is subtractive. There is one typeface (Overpass, descended from the FHWA Highway Gothic used on road signage) doing every job through weight and tracking alone. There is one literal-value file; every colour, size and duration in the project resolves back to it. There are no boxes: structure is made with rules, voids and alignment, and the one raised surface in the entire system is a pale sign plate. Colour is kept out of the reading column entirely \u2014 it lives in strokes, ticks, links and interactive states, so that when red appears it still means something.\n\nThe build is dense at the top of the page and generous underneath: the first viewport must hand a skimmer the whole mechanism (name, claim, four stations, terminus) before they scroll, and the long reads below hold a strict 68ch measure so the reader who does go further is never fighting the width. Every layout decision follows from one question \u2014 does this block have a field to fill, or is it prose that should stay in its column?",
+    "keyCharacteristics": [
+      "A single continuous route stroke runs the length of every long page, with a tick at every station",
+      "Five literal colours, no invented sixth; every other value is a color-mix of those five",
+      "Achromatic reading column \u2014 colour appears only on strokes, ticks, links and interactive state",
+      "One typeface, four weights (400/600/700/900), differentiated by weight and tracking, never by family",
+      "Zero corner radius anywhere except the 50% circle of a station tick",
+      "Flat by construction: no elevation shadows; the only raised plane is a pale sign plate",
+      "One authored motion moment, site-wide: approaching a stop fills it"
+    ],
+    "rules": [
+      {
+        "name": "The Five Values Rule",
+        "body": "src/styles/tokens.css is the only file in the project containing a literal colour, size or duration. It holds exactly five colours. Every other colour in the system is a color-mix() derived from those five. A new colour is not a new token \u2014 it is a new mix, or it does not exist.",
+        "section": "colors"
+      },
+      {
+        "name": "The Achromatic Column Rule",
+        "body": "Colour never enters the reading column. Emphasis inside prose or a table is carried by weight, scale and an ink rule \u2014 a pull-quote is bounded by 1px ink rules top and bottom, an emphasised table row by a 2px ink underline. The mark that says 'this is a turn' lives out in the route rail, where colour belongs.",
+        "section": "colors"
+      },
+      {
+        "name": "The Scarce Red Rule",
+        "body": "Interchange red marks a change of direction, an ending, or an unmet state \u2014 nothing else. If red appears more than two or three times in a viewport it has stopped meaning 'junction' and become decoration.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Face Rule",
+        "body": "Overpass at 400/600/700/900 carries every role. No second family, no serif for contrast, no system display face. If a distinction is needed, it is made with weight, size or tracking.",
+        "section": "typography"
+      },
+      {
+        "name": "The Sign Lettering Rule",
+        "body": "Tracked uppercase (0.08em) is signage: short labels only, never a sentence and never body text. It is set hyphens: none so a tracked compound cannot be broken across lines.",
+        "section": "typography"
+      },
+      {
+        "name": "The Space-Above Rule",
+        "body": "Headings take more space above than below, so a heading belongs to the block it introduces rather than floating between two.",
+        "section": "typography"
+      },
+      {
+        "name": "The Zone Rule",
+        "body": "A block whose content is a labelled record list puts its label in a sticky left column (minmax(14rem, 19rem)) and its records in the field beside it \u2014 employer zones, CV sections, the footer. Continuous prose does not: it holds the measure and its rules stop at the text column, rather than declaring a field it never fills. Ask of any full-width rule: is there a field under it, or am I ruling a void?",
+        "section": "layout"
+      },
+      {
+        "name": "The Grid Rule",
+        "body": "Every measurement comes from the spacing scale or from a token. A one-off pixel value is a defect, not a decision.",
+        "section": "layout"
+      },
+      {
+        "name": "The No-Scroll-Table Rule",
+        "body": "A table narrower than 40rem restacks into rows, each cell carrying its own column label, so the header association survives without JavaScript and without a horizontal scroller.",
+        "section": "layout"
+      },
+      {
+        "name": "The Single Plane Rule",
+        "body": "Surfaces do not lift. If a block needs to separate from the page, it takes the station fill and a rule \u2014 never a shadow, never a border box.",
+        "section": "elevation"
+      },
+      {
+        "name": "The One Moment Rule",
+        "body": "The site has exactly one authored motion idea, orchestrated across every route tick: approaching a stop fills it. Background transitions at 120ms, the halo at 320ms, both on cubic-bezier(0.22, 1, 0.36, 1). Nothing is hidden at rest and nothing animates on load, so the reduced-motion guard removes an enhancement rather than content.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Continuous Route Exception",
+        "body": "A named, conditional exception \u2014 not a general permission. Below 40rem, the <li> elements in Pipeline.astro and LineIndex.astro take border-inline-start: var(--route-stroke) solid var(--color-route) \u2014 a coloured left border above 1px on list items, which the craft floor's Refuse list names. The finish review examined and ACCEPTED it on these grounds: it is the committed visual world's central device rather than a decorative accent; it runs continuous through the list (the stacked <ol> sets gap: 0) rather than repeating per item; it carries meaning by colour; and the craft floor's own preamble grants the committed visual world precedence. The condition it was accepted under: it holds only while the stroke reads as one continuous route. Any future per-item gap re-opens the finding. This exception is scoped to these two route components. It is not permission for coloured left borders on callouts, quotes, cards or asides \u2014 those remain refused, and the prose blockquote deliberately does not take one.",
+        "section": "components"
+      },
+      {
+        "name": "The Pending-Not-Faked Rule",
+        "body": "A contact value, date or figure that has not been supplied renders as a visible red dashed marker stating what is missing. Never a placeholder, never a plausible fake, never silently omitted.",
+        "section": "components"
+      },
+      {
+        "name": "The Semantics-First Rule",
+        "body": "Every diagram element is drawn on real semantics: pipelines and indexes are <ol>s, metadata is a <dl>, tables carry scoped headers. Route strokes and ticks are ::before/::after decoration and are never announced. A visual device that would require faking structure is not built.",
+        "section": "components"
+      },
+      {
+        "name": "The Quoted Material Rule",
+        "body": "A capture is quoted, not authored. The Five Values Rule and the Achromatic Column Rule govern what the system draws, not what the page depicts, so a capture may contain any colours at all under four conditions: it is visibly quoted (plate, blue rule, source line); the system never samples a colour out of it into the palette or tints a mark to match it; quotation is rationed, one plate per case study and never in the first viewport; and the only mark the site adds inside the quote is redaction, in the ink value. Break any of the four and it has become a sixth value."
+      },
+      {
+        "name": "The Plate-or-Nothing Rule",
+        "body": "A raster enters this site only on the station plate, with a source line naming what it is. No bare image in MDX, no image on the ground, no image inside the 68ch measure. img is mapped to a component that throws, so a bare markdown image fails the build rather than shipping an unplated raster."
+      },
+      {
+        "name": "The Burned Redaction Rule",
+        "body": "Redaction is destructive and happens in the image file before it reaches the repo: solid ink rectangles on flattened pixels. Never blur, never pixelate, never a DOM overlay \u2014 if the browser can undo it, it was never redacted, and saying so on the page is a false statement. Any altered capture states that it is altered, in real text on the plate. A file carrying bars is named *.redacted.* and the build fails if it arrives without a note."
+      },
+      {
+        "name": "The Key Survives Rule",
+        "body": "The legend carries the argument, not the pixels. Below 40rem the numbered marks are not drawn, because at that scale they would collide and none could be read, so every legend note must make its point with the capture gone."
+      },
+      {
+        "name": "The Evidence Rule",
+        "body": "A capture is evidence. Real records, real volumes, real dates, no cosmetic retouching, no invented rows, no prettier number. If the truthful state cannot be shown, it is not shown \u2014 the Pending-Not-Faked Rule applied to pixels."
+      },
+      {
+        "name": "The Map Coordinates Rule",
+        "body": "Callout percentages are content coordinates, not design measurements: they say where a thing is inside quoted material. The Grid Rule governs the system's own spacing and is not violated by them. The same applies to raster resolutions and sizes, which are network values rather than design values."
+      },
+      {
+        "name": "The Loaded Subset Rule",
+        "body": "A character the loaded font does not cover is a second typeface, silently. Overpass ships as the Google latin subset, whose unicode-range covers U+2191 and U+2193 but not U+2192, nor circled numerals, nor the north-east arrow. unicode-range gates usage rather than availability, so the browser never tries Overpass for an uncovered character and falls straight to Helvetica. Check any character outside Basic Latin against the emitted unicode-range; where a mark is wanted rather than a letter, draw it."
+      }
+    ],
+    "dos": [
+      "Do put every literal colour, size and duration in src/styles/tokens.css and reference it everywhere else. If a new surface needs a value, add it there or derive it with color-mix() from the five.",
+      "Do wrap any sequential page in .route with .station children, mark a constraint with .interchange, and close a finished sequence with .terminates. A line that just stops is unfinished.",
+      "Do keep colour out of the reading column. Emphasise with weight, scale and ink rules; put the coloured mark in the route rail.",
+      "Do apply the Zone Rule before choosing a full-width layout: label-left/records-right at 64rem for labelled record lists, measure-held for prose.",
+      "Do use .sign (tracked uppercase 0.08em, quiet ink, 0.75rem) for short labels, captions, dates and column headers.",
+      "Do give any new interactive tick the .tick-target class so it inherits the site's single motion moment rather than inventing a second one.",
+      "Do state a missing value as missing, in the red dashed pending style.",
+      "Do reach first for this world's own unused native devices when a new surface needs a device it doesn't have \u2014 the 45\u00b0/90\u00b0 dogleg, station-type symbols that distinguish a stop from an interchange from a terminus, the line roundel, inter-station annotation. These are unspent headroom in the committed world, not rules; prefer them over importing a device from outside it."
+    ],
+    "donts": [
+      "Don't introduce a sixth literal colour, or a colour that is not a color-mix() of the five.",
+      "Don't add a corner radius. Zero is the system; the 50% tick circle is the only exception.",
+      "Don't add an elevation shadow, a gradient, or a glow. The only box-shadow in the system is the tick's state halo.",
+      "Don't add a second typeface, a system display face, or an unloaded weight (font-synthesis-weight is off, so a fake bold will not render).",
+      "Don't put a coloured left border on a callout, quote, aside or card. The exception recorded above is scoped to the two route components and is conditional on the stroke reading as one continuous line.",
+      "Don't build a box: no bordered card, no filled tile grid. Records are separated by hairlines and space; the station fill is reserved for the metadata plate and the footer.",
+      "Don't run tracked sign lettering as body text, or let it hyphenate.",
+      "Don't spend interchange red on anything that is not a junction, a terminus, a focus state or an unmet value.",
+      "Don't fake structure to get a visual effect \u2014 no <div> pipelines, no unlabelled table columns, no decorative element announced to a screen reader.",
+      "Don't let a full-width rule declare a field that has no content under it."
+    ]
+  }
+}

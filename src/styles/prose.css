@@ -1,0 +1,125 @@
+@layer prose {
+  /*
+   * Markdown body content rendered through <Content />. Astro scoped styles do not
+   * reach it, so everything descends from .prose. Selectors are wrapped in :where()
+   * for zero specificity, which lets MDX components (DataTable, Pipeline) style
+   * themselves freely without fighting inherited rules.
+   */
+  .prose { max-width: var(--measure); }
+
+  :where(.prose) > * + * { margin-block-start: var(--spacing-md); }
+
+  :where(.prose) :where(h2) {
+    font-size: var(--font-size-h2);
+    margin-block-start: var(--spacing-2xl);
+    margin-block-end: var(--spacing-md);
+  }
+  :where(.prose) :where(h3) {
+    font-size: var(--font-size-h3);
+    margin-block-start: var(--spacing-xl);
+    margin-block-end: var(--spacing-sm);
+  }
+
+  :where(.prose) :where(p) { line-height: var(--line-height-body); }
+
+  :where(.prose) :where(ul, ol) {
+    max-width: var(--measure);
+    display: grid;
+    gap: var(--spacing-sm);
+    padding-left: var(--spacing-lg);
+  }
+  :where(.prose) :where(ul) > li { list-style: none; position: relative; }
+  /* list markers drawn as route ticks, in the world's own grammar */
+  :where(.prose) :where(ul) > li::before {
+    content: '';
+    position: absolute;
+    left: calc(var(--route-gap) * -1);
+    top: 0.62em;
+    width: var(--spacing-sm);
+    height: var(--route-stroke);
+    background: var(--color-route);
+  }
+  :where(.prose) :where(ol) { list-style: decimal; }
+  :where(.prose) :where(ol) > li::marker {
+    color: var(--color-ink-quiet);
+    font-weight: 700;
+  }
+
+  /*
+   * Pull-quotes. The author uses blockquotes as emphasis beats, several per study —
+   * they carry the argument's turns, so they get real weight: the line branching out.
+   */
+  /*
+   * Pull-quotes carry the argument's turns. The emphasis is made with scale, weight
+   * and a rule — never a coloured bar inside the measure, which both the craft floor
+   * refuses on callouts and OWN-WORLD forbids in the reading column. The mark that
+   * says "this is a turn" lives out in the route rail, where colour belongs.
+   */
+  :where(.prose) :where(blockquote) {
+    position: relative;
+    margin-block: var(--spacing-xl);
+    padding-block: var(--spacing-md);
+    border-block: 1px solid var(--color-rule-strong);
+    font-size: var(--font-size-lead);
+    line-height: var(--line-height-snug);
+    font-weight: 700;
+    max-width: calc(var(--measure) - 2ch);
+  }
+  /*
+   * The turn, marked on the line rather than in the text. Route blue, not interchange
+   * red: a pull-quote is a stop the line makes, not a junction. Red stays scarce so
+   * the terminus keeps meaning something.
+   */
+  :where(.route) :where(.prose) :where(blockquote)::before {
+    content: '';
+    position: absolute;
+    left: calc(var(--route-gap) * -1);
+    top: var(--spacing-md);
+    width: var(--route-stroke);
+    height: calc(100% - var(--spacing-md) * 2);
+    background: var(--color-route);
+    transform: translateX(-50%);
+  }
+  :where(.prose) :where(blockquote) :where(p) { max-width: none; }
+  :where(.prose) :where(blockquote) :where(strong) { font-weight: 700; }
+
+  :where(.prose) :where(hr) {
+    border: 0;
+    border-top: 1px solid var(--color-rule);
+    margin-block: var(--spacing-xl);
+  }
+
+  :where(.prose) :where(em) { font-style: italic; }
+
+  /* a table authored outside DataTable still has to look like it belongs */
+  :where(.prose) :where(table) {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--font-size-meta);
+  }
+  :where(.prose) :where(th, td) {
+    text-align: left;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-bottom: 1px solid var(--color-rule);
+  }
+}
+
+@layer prose {
+  /*
+   * Inside a route, the narrative beats ARE the stops. The case study's h2s take
+   * the tick, so the world is drawn by the content rather than laid over it.
+   */
+  :where(.route) :where(.prose) :where(h2) { position: relative; }
+  :where(.route) :where(.prose) :where(h2)::before {
+    content: '';
+    position: absolute;
+    left: calc(var(--route-gap) * -1);
+    top: 0.45em;
+    width: var(--tick-size);
+    height: var(--tick-size);
+    border-radius: var(--radius-tick);
+    background: var(--color-ground);
+    border: var(--route-stroke) solid var(--color-route);
+    transform: translate(-50%, -50%);
+  }
+}

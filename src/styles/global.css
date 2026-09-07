@@ -1,0 +1,13 @@
+/*
+ * Cascade layers, declared once and in order.
+ *
+ * Astro's .astro scoped styles are UNLAYERED, so they beat every rule here regardless
+ * of specificity. That is deliberate: it lets a component style itself inside .prose
+ * with no !important and no specificity arithmetic.
+ */
+@layer reset, base, prose, components, utilities;
+
+@import './tokens.css';
+@import './reset.css';
+@import './base.css';
+@import './prose.css';

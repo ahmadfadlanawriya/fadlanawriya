@@ -1,0 +1,77 @@
+/*
+ * The ONLY file in this project containing a literal colour, size, or duration.
+ * Everything else references these. THE LINE DIAGRAM — transit wayfinding.
+ *
+ * PALETTE LAW (donated by Game Boy Four-Shade Field): five named values, no invented
+ * sixth. Tints are derived with color-mix from these five and nothing else.
+ * Colour appears ONLY in route strokes, interchange ticks and links. The reading
+ * column stays achromatic (donated by Iridescent Cloud Edge).
+ *
+ * Light ground, chosen from the scene: a recruiter on a phone, in daylight, glancing
+ * between this and a CV in another tab. A printed enamel sign, not a screen at night.
+ */
+:root {
+  /* --- the five --- */
+  --color-ground: #e8ebee;       /* cool enamel grey — the sheet the diagram prints on */
+  --color-sheet: #f7f9fa;        /* station fill, raised panels */
+  --color-ink: #10141a;          /* near-black — all body text */
+  --color-route: #0b4fb0;        /* signal blue — route strokes, links */
+  --color-interchange: #c3341d;  /* interchange red — junctions, the live element */
+
+  /* --- derived, from the five only --- */
+  --color-rule: color-mix(in srgb, var(--color-ink) 18%, transparent);
+  --color-rule-strong: color-mix(in srgb, var(--color-ink) 38%, transparent);
+  --color-ink-quiet: color-mix(in srgb, var(--color-ink) 68%, var(--color-ground));
+  --color-route-quiet: color-mix(in srgb, var(--color-route) 12%, var(--color-ground));
+  --color-selection: color-mix(in srgb, var(--color-route) 22%, var(--color-ground));
+
+  /* --- type: one face, the transit discipline --- */
+  --font-sans: 'Overpass', 'Helvetica Neue', Arial, sans-serif;
+  --font-display: var(--font-sans);
+  --font-body: var(--font-sans);
+
+  --font-size-micro: 0.75rem;
+  --font-size-small: 0.8125rem;
+  --font-size-meta: 0.9375rem;
+  --font-size-body: 1.0625rem;
+  --font-size-lead: 1.25rem;
+  --font-size-h3: 1.375rem;
+  --font-size-h2: 1.75rem;
+  --font-size-station: clamp(1.3125rem, 1rem + 1.5vw, 2.125rem);
+  --font-size-display: clamp(1.875rem, 0.95rem + 4.1vw, 4rem);
+
+  --line-height-tight: 1.08;
+  --line-height-snug: 1.28;
+  --line-height-body: 1.6;
+
+  --tracking-display: -0.02em;
+  --tracking-sign: 0.08em;   /* station-sign lettering: enamel signs are tracked open */
+
+  /* --- the grid: everything sits on it, nothing off it --- */
+  --spacing-unit: 0.5rem;
+  --spacing-2xs: 0.25rem;
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 0.75rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2.5rem;
+  --spacing-2xl: 4rem;
+  --spacing-3xl: 6rem;
+
+  --measure: 68ch;
+  --read-max: 58rem;   /* a long read: the measure plus the route rail */
+  --page-max: 74rem;
+  --page-gutter: clamp(1.25rem, 0.7rem + 2.6vw, 3.5rem);
+
+  /* the route line itself */
+  --route-stroke: 4px;
+  --route-rail: 2.5rem;       /* distance from page edge to the route line */
+  --tick-size: 0.875rem;
+
+  --radius-none: 0;
+  --radius-tick: 50%;
+
+  --duration-quick: 120ms;
+  --duration-move: 320ms;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
