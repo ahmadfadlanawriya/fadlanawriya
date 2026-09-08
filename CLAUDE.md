@@ -80,10 +80,18 @@ broken while editing code, blind:
   to an orphan **`deploy`** branch → Hostinger clones `deploy`. Hostinger never runs a
   build. Each build rewrites the orphan history, so a Hostinger pull that fast-forwards
   will eventually refuse; recloning fixes it.
-- **Analytics:** `PUBLIC_GTM_ID` is a repository *variable*, not a secret — it ships in the
-  HTML of every page. `Analytics.astro` gates on `PROD && PUBLIC_GTM_ID`, so `npm run dev`
-  ships nothing. Changing the variable does **not** trigger a build; use the
-  `workflow_dispatch` button. Consent defaults to denied for all four storage types.
+- **Analytics:** GTM container `GTM-5W9MJKST`, feeding GA4 property `G-BMBG4PG5ML`. The
+  measurement ID appears **nowhere in this repo** — it lives only in the container's Google
+  Tag — so a GA4 problem is almost always a GTM console problem, not a code problem.
+  `PUBLIC_GTM_ID` is a repository *variable*, not a secret: it ships in the HTML of every
+  page. `Analytics.astro` gates on `PROD && PUBLIC_GTM_ID`, so `npm run dev` ships nothing.
+  Changing the variable does **not** trigger a build; use the `workflow_dispatch` button.
+- **Consent defaults to denied** for all four storage types. The site pushes those defaults,
+  but the GTM tag must be set to *require* `analytics_storage` in its Consent Settings or it
+  fires regardless and the banner is decorative. That switch is invisible from this repo.
+  Verify by request parameter, not GA4 Realtime: before consent the GA4 request should carry
+  `gcs=G100`, after Allow `gcs=G111`. A tag that never fires and a tag correctly blocked by
+  consent look identical in Realtime.
 - **The `<noscript>` GTM iframe is omitted deliberately.** It would fire the container for
   visitors with no JavaScript, who have no way to consent. Don't add it back.
 
